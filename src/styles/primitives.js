@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   * { box-sizing: border-box; }
   html, body, #root { width: 100%; min-width: 100vw; height: 100%; min-height: 100%; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     min-height: 100svh;
@@ -27,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  body.deck { scroll-snap-type: y mandatory; }
   a { color: inherit; text-decoration: none; }
   a:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
   button:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
