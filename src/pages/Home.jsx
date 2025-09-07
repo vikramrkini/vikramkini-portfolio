@@ -1,38 +1,54 @@
 import { Helmet } from 'react-helmet-async'
-import styled, { keyframes } from 'styled-components'
-import { Container, Section, Heading, Subtext, LinkButton, MutedButton } from '../styles/primitives.js'
-import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { Container, Section, Heading, Subtext } from '../styles/primitives.js'
 
-const shimmer = keyframes`
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+const ResumeWrap = styled.div`
+  margin-top: 18px;
+  height: 85vh;
+  min-width: 100%;
 `
 
-const GlowTitle = styled(Heading)`
-  background: linear-gradient(90deg,#e8eefc 0%, #bcd3ff 25%, #c7b6ff 50%, #9cf5e4 75%, #e8eefc 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: ${shimmer} 14s linear infinite;
-  text-shadow: 0 6px 40px rgba(100, 251, 210, 0.08), 0 2px 14px rgba(142, 178, 255, 0.12);
+const FullWidth = styled(Container)`
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
 `
 
-const CTAWrap = styled.div`
-  display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;
+const ResumeContainer = styled.div`
+  width: 100%;
+  margin: 18px auto 0;
+  height: 80vh;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1e2941;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+  background: rgba(0,0,0,0.08);
 `
 
 export default function Home() {
+  const pdfUrl = `${import.meta.env.BASE_URL}Resume-Vikram.pdf`
   return (
-    <Container as={Section}>
+    <FullWidth as={Section}>
       <Helmet>
-        <title>Vikram Kini — Software Engineer</title>
-        <meta name="description" content="Software Engineer specializing in React, Swift, and Spring Boot. Explore projects and get in touch." />
+        <title>Portfolio — Vikram Kini</title>
+        <meta name="description" content="Professional software engineer portfolio — React, Swift, and Spring Boot. View resume and experience." />
       </Helmet>
-      <GlowTitle>Vikram Kini</GlowTitle>
+      <Heading as="h1">Building thoughtful, reliable software.</Heading>
       <Subtext>Software Engineer · React · Swift · Spring Boot</Subtext>
-      <CTAWrap>
-        <LinkButton as={Link} to="/projects">View Projects</LinkButton>
-        <MutedButton as={Link} to="/contact">Contact</MutedButton>
-      </CTAWrap>
-    </Container>
+      <Subtext style={{ maxWidth: 900, margin: '4px auto 0' }}>
+        I design and ship human‑centered products across web, iOS, and backend systems — balancing aesthetics, performance, and pragmatism.
+      </Subtext>
+      <ResumeContainer>
+        <ResumeWrap>
+          <iframe
+            title="Resume PDF"
+            src={`${pdfUrl}#zoom=90&toolbar=0&navpanes=0&statusbar=0`}
+            width="100%"
+            height="100%"
+            style={{ border: 0, display: 'block' }}
+          />
+        </ResumeWrap>
+      </ResumeContainer>
+    </FullWidth>
   )
 }

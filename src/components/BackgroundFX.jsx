@@ -23,13 +23,12 @@ const Wrap = styled.div`
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  mask-image: radial-gradient(1200px 600px at 50% -10%, #000 40%, transparent 70%);
 `
 
 const Blob = styled.div`
   position: absolute;
-  width: 70vmax;
-  height: 70vmax;
+  width: 100vmax;
+  height: 100vmax;
   filter: blur(60px) saturate(120%);
   opacity: .45;
   will-change: transform, opacity;
@@ -71,4 +70,3 @@ export default function BackgroundFX() {
     </Wrap>
   )
 }
-

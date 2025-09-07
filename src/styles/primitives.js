@@ -11,13 +11,18 @@ export const GlobalStyle = createGlobalStyle`
     --focus: #ffd166;
   }
   * { box-sizing: border-box; }
-  html, body, #root { height: 100%; }
+  html, body, #root { width: 100%; min-width: 100vw; height: 100%; min-height: 100%; }
   body {
     margin: 0;
+    min-height: 100svh;
+    min-width: 100vw;
+    display: block;
     color: var(--text);
     background: radial-gradient(1200px 600px at 10% -10%, #1a2338, transparent 60%),
                 radial-gradient(1000px 500px at 90% -20%, #12203a, transparent 50%),
                 var(--bg);
+    background-repeat: no-repeat;
+    overflow-x: hidden;
     font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -30,14 +35,22 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
+export const AppShell = styled.div`
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+`
+
 export const PageWrap = styled.main`
-  min-height: calc(100vh - 140px);
+  flex: 1;
+  width: 100%;
+  display: block;
 `
 
 export const Container = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 20px;
+  width: 100%;
+  padding: 24px 0;
+  text-align: center;
 `
 
 export const Section = styled.section`
@@ -88,6 +101,7 @@ export const Grid = styled.div`
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-items: center;
 `
 
 export const Nav = styled.nav`
@@ -97,19 +111,23 @@ export const Nav = styled.nav`
   background: rgba(11, 15, 21, 0.7);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid #19233a;
+  width: 100%;
 `
 
 export const NavInner = styled(Container)`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 14px;
+  padding-bottom: 14px;
 `
 
 export const NavLinks = styled.div`
   display: flex;
   gap: 14px;
+  justify-content: center;
   a {
     position: relative;
     padding: 8px 10px;
@@ -141,14 +159,15 @@ export const NavLinks = styled.div`
 export const FooterWrap = styled.footer`
   border-top: 1px solid #19233a;
   background: rgba(11,15,21,0.6);
+  width: 100%;
 `
 
 export const FooterInner = styled(Container)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px 14px;
+  justify-content: center;
+  text-align: center;
   padding-top: 16px;
   padding-bottom: 20px;
   color: var(--muted);
