@@ -25,6 +25,9 @@ export const GlobalStyle = createGlobalStyle`
   a { color: inherit; text-decoration: none; }
   a:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
   button:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
 `
 
 export const PageWrap = styled.main`
@@ -108,14 +111,31 @@ export const NavLinks = styled.div`
   display: flex;
   gap: 14px;
   a {
+    position: relative;
     padding: 8px 10px;
     border-radius: 8px;
     color: var(--muted);
+    transition: color .2s ease, text-shadow .2s ease;
+  }
+  a::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 4px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #6aa5ff, #b88cff, #64fbd2, transparent);
+    opacity: 0;
+    transform: scaleX(0.4);
+    transition: opacity .25s ease, transform .25s ease;
   }
   a[aria-current="page"], a.active {
     color: var(--text);
     background: #1a2338;
+    text-shadow: 0 0 12px rgba(136,178,255,0.35);
   }
+  a:hover::after { opacity: .9; transform: scaleX(1); }
 `
 
 export const FooterWrap = styled.footer`
@@ -133,4 +153,3 @@ export const FooterInner = styled(Container)`
   padding-bottom: 20px;
   color: var(--muted);
 `
-

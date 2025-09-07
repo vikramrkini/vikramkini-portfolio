@@ -1,5 +1,19 @@
 import { Helmet } from 'react-helmet-async'
-import { Container, Section, Heading, Subtext } from '../styles/primitives.js'
+import styled from 'styled-components'
+import { Container, Section, Heading, Subtext, Card, Grid } from '../styles/primitives.js'
+
+const Profile = styled.div`
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 18px;
+  align-items: center;
+  @media (max-width: 560px) { grid-template-columns: 1fr; }
+`
+
+const Avatar = styled.img`
+  width: 140px; height: 140px; border-radius: 16px; object-fit: cover;
+  border: 1px solid #223152; box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+`
 
 export default function About() {
   return (
@@ -10,21 +24,42 @@ export default function About() {
       </Helmet>
       <Section>
         <Heading>About</Heading>
-        <Subtext>
-          I’m a software engineer who enjoys designing and shipping pragmatic, performant products.
-          I work across the stack with React on the web, Swift for iOS, and Spring Boot for backend services.
-        </Subtext>
+        <Profile>
+          <Avatar src="avatar.svg" alt="Portrait of Vikram Kini" />
+          <Subtext>
+            I’m Vikram, a software engineer crafting clean, reliable products with a calm aesthetic.
+            I focus on delightful, accessible experiences powered by React on the web, Swift for iOS, and Spring Boot on the backend.
+            I care deeply about performance, clarity, and shipping.
+          </Subtext>
+        </Profile>
       </Section>
       <Section>
         <Heading as="h2">Skills</Heading>
-        <ul>
-          <li>Frontend: React, Vite, TypeScript, styled-components</li>
-          <li>Mobile: Swift, SwiftUI</li>
-          <li>Backend: Spring Boot, REST APIs</li>
-          <li>Tooling: GitHub Actions, CI/CD, testing</li>
-        </ul>
+        <Grid>
+          <Card>
+            <Heading as="h3" style={{ fontSize: 18 }}>Frontend</Heading>
+            <ul>
+              <li>React, Vite, TypeScript</li>
+              <li>styled-components, Accessibility</li>
+              <li>Performance & testing</li>
+            </ul>
+          </Card>
+          <Card>
+            <Heading as="h3" style={{ fontSize: 18 }}>Mobile</Heading>
+            <ul>
+              <li>Swift, SwiftUI</li>
+              <li>Local-first & offline</li>
+            </ul>
+          </Card>
+          <Card>
+            <Heading as="h3" style={{ fontSize: 18 }}>Backend</Heading>
+            <ul>
+              <li>Spring Boot, REST APIs</li>
+              <li>CI/CD with GitHub Actions</li>
+            </ul>
+          </Card>
+        </Grid>
       </Section>
     </Container>
   )
 }
-

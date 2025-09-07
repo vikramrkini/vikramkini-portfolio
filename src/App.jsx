@@ -2,6 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom'
 import { GlobalStyle } from './styles/primitives.js'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import BackgroundFX from './components/BackgroundFX.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Projects from './pages/Projects.jsx'
@@ -14,6 +15,7 @@ function App() {
   return (
     <HashRouter>
       <GlobalStyle />
+      <BackgroundFX />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
