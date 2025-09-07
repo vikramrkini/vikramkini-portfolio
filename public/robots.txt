@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vikramrkini.github.io/vikramkini-portfolio/sitemap.xml
+
