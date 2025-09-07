@@ -187,7 +187,7 @@ export default function Home() {
             transition={{ type: 'spring', stiffness: 120, damping: 16 }}
           >
             <Heading as={motion.h1} style={{ y: yHero, opacity: oHero }}>I build AI‑powered, user‑first software.</Heading>
-            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>Software Engineer — React · Swift · Spring Boot</Subtext>
+            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>Software Engineer — Full‑stack · Mobile · Cloud</Subtext>
             <Subtext as={motion.p} style={{ y: ySub, opacity: oHero, maxWidth: 900, margin: '6px auto 10px' }}>
               I turn product ideas into performant web and mobile experiences — bringing AI assistance where it creates real value.
             </Subtext>
@@ -220,8 +220,8 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <h3 style={{ marginTop: 0 }}>AI Assistant</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Reduced educator support requests by <b>38%</b> with a contextual workflow guide.</p>
+                <h3 style={{ marginTop: 0 }}>Platform Scale</h3>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Delivered the ISAFE Direct document delivery system, now serving <b>250+ U.S. school districts</b> with secure workflows for compliance forms.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -230,7 +230,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
                 <h3 style={{ marginTop: 0 }}>Mobile Growth</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Launched iOS app that increased engagement by <b>20%</b> using SwiftUI + Firebase.</p>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Launched the MyOK iOS/Android app using <b>SwiftUI + Firebase</b>, driving a <b>20%</b> increase in engagement and crossing <b>500+ downloads</b> within weeks.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -238,8 +238,8 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.16 }}
               >
-                <h3 style={{ marginTop: 0 }}>Platform Efficiency</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Cut infra costs by <b>30%</b> through job orchestration and query optimizations.</p>
+                <h3 style={{ marginTop: 0 }}>Academic Excellence</h3>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Earned a <b>4.0/4.0 GPA</b> in the M.S. Computer Science program at UIUC, excelling in Cloud Computing, Applied ML, and Software Engineering.</p>
               </Card>
             </Grid>
           </SlideInner>
