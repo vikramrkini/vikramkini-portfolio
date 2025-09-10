@@ -2,11 +2,15 @@ import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { Container, Section, Heading, Subtext, LinkButton, MutedButton, Card, Grid } from '../styles/primitives.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const SocialGrid = styled(Grid)`
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   margin-top: 16px;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 420px));
+  justify-content: center;
+  align-items: start;
+  justify-items: stretch;
 `
 
 const IconWrap = styled.div`
@@ -15,6 +19,72 @@ const IconWrap = styled.div`
   border-radius: 10px;
   background: #111a2b;
   border: 1px solid #1f2c49;
+`
+
+const LIWrapper = styled.div`
+  display: block;
+  width: 100%;
+  max-width: 50px;
+  margin: 0 auto;
+  line-height: 0; /* remove baseline gap */
+  /* Hide fallback link text to avoid layout shift */
+  a.LI-simple-link { display: none !important; }
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  iframe {
+    display: block;
+    background: transparent !important;
+    border: 0 !important;
+    transform-origin: center center;
+    transform: scale(1.05);
+  }
+`
+
+const SocialCard = styled(Card)`
+  width: 100%;
+  max-width: 420px;
+`
+
+const Avatar = styled.img`
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1px solid #223152;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+`
+
+const StatRow = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+
+const StatPill = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 40%), #152033;
+  border: 1px solid #1f2c49;
+  border-radius: 999px;
+`
+
+const RepoList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: grid;
+  gap: 6px;
+  width: 100%;
+`
+
+const RepoItem = styled.li`
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
 `
 
 function IconLinkedIn(props) {
@@ -44,6 +114,11 @@ function IconMail(props) {
 export default function Contact() {
   const [copied, setCopied] = useState(false)
   const email = 'vrkini23@gmail.com'
+  const githubUser = 'vikramrkini'
+
+  const [gh, setGh] = useState(null)
+  const [repos, setRepos] = useState([])
+  const [ghErr, setGhErr] = useState(null)
 
   const copyEmail = async () => {
     try {
@@ -54,6 +129,56 @@ export default function Contact() {
       setCopied(false)
     }
   }
+
+  useEffect(() => {
+    let cancelled = false
+    const run = async () => {
+      try {
+        const ures = await fetch(`https://api.github.com/users/${githubUser}`)
+        if (!ures.ok) throw new Error('GitHub user fetch failed')
+        const u = await ures.json()
+        if (!cancelled) setGh(u)
+
+        const rres = await fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100&sort=updated`)
+        if (rres.ok) {
+          const r = await rres.json()
+          const top = [...r]
+            .filter(x => !x.fork)
+            .sort((a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0))
+            .slice(0, 3)
+          if (!cancelled) setRepos(top)
+        }
+      } catch (e) {
+        if (!cancelled) setGhErr(String(e))
+      }
+    }
+    run()
+    return () => { cancelled = true }
+  }, [])
+
+  // Tweak LinkedIn badge iframe once it is injected, to avoid extra white background
+  useEffect(() => {
+    const badge = document.querySelector('.LI-profile-badge')
+    if (!badge) return
+    const apply = () => {
+      const iframe = badge.querySelector('iframe')
+      if (!iframe) return false
+      // Make iframe transparent and clamp wrapper width to iframe's rendered width
+      iframe.style.background = 'transparent'
+      iframe.style.border = '0'
+      const w = iframe.getBoundingClientRect().width
+      if (w && Number.isFinite(w)) {
+        badge.style.maxWidth = Math.ceil(w) + 'px'
+      }
+      return true
+    }
+    if (!apply()) {
+      const obs = new MutationObserver(() => { if (apply()) obs.disconnect() })
+      obs.observe(badge, { childList: true, subtree: true })
+      const t = setTimeout(() => obs.disconnect(), 5000)
+      return () => { obs.disconnect(); clearTimeout(t) }
+    }
+  }, [])
 
   return (
     <Container as={motion.div}
@@ -81,7 +206,8 @@ export default function Contact() {
         >Open to roles, freelance, and collaborations.</Subtext>
 
         <SocialGrid>
-          <Card as={motion.a}
+          {/* Email: keep simple */}
+          <SocialCard as={motion.a}
             href={`mailto:${email}?subject=Hello%20Vikram`}
             aria-label="Send me an email"
             style={{ textDecoration: 'none', color: 'inherit', padding: 16, display: 'grid', gap: 10, justifyItems: 'center' }}
@@ -93,37 +219,57 @@ export default function Contact() {
             <IconWrap><IconMail /></IconWrap>
             <strong>Email</strong>
             <span style={{ color: 'var(--muted)' }}>{email}</span>
-          </Card>
+          </SocialCard>
 
-          <Card as={motion.a}
-            href="https://linkedin.com/in/vikramkini"
-            target="_blank" rel="noopener noreferrer"
-            aria-label="LinkedIn profile"
-            style={{ textDecoration: 'none', color: 'inherit', padding: 16, display: 'grid', gap: 10, justifyItems: 'center' }}
+          {/* LinkedIn: official profile badge embed */}
+          <SocialCard as={motion.div}
+            style={{ padding: 10, display: 'grid', gap: 8, justifyItems: 'center', overflow: 'hidden' }}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.05 }}
           >
-            <IconWrap><IconLinkedIn /></IconWrap>
-            <strong>LinkedIn</strong>
-            <span style={{ color: 'var(--muted)' }}>linkedin.com/in/vikramkini</span>
-          </Card>
+            <LIWrapper
+              className="LI-profile-badge"
+              data-version="v1"
+              data-size="large"
+              data-locale="en_US"
+              data-type="vertical"
+              data-theme="dark"
+              data-vanity="vikramkini"
+              aria-label="Embedded LinkedIn profile"
+            >
+              <a className="LI-simple-link" href="https://www.linkedin.com/in/vikramkini?trk=profile-badge">Vikram Kini</a>
+            </LIWrapper>
+          </SocialCard>
 
-          <Card as={motion.a}
-            href="https://github.com/vikramrkini"
-            target="_blank" rel="noopener noreferrer"
+          {/* GitHub: live profile and top repos */}
+          <SocialCard as={motion.a}
+            href={`https://github.com/${githubUser}`}
+            target="_blank" rel="me noopener noreferrer"
             aria-label="GitHub profile"
-            style={{ textDecoration: 'none', color: 'inherit', padding: 16, display: 'grid', gap: 10, justifyItems: 'center' }}
+            style={{ textDecoration: 'none', color: 'inherit', padding: 16, display: 'grid', gap: 8, justifyItems: 'center' }}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
           >
-            <IconWrap><IconGitHub /></IconWrap>
-            <strong>GitHub</strong>
-            <span style={{ color: 'var(--muted)' }}>github.com/vikramrkini</span>
-          </Card>
+            <Avatar src={gh?.avatar_url || 'https://avatars.githubusercontent.com/u/0?v=4'} alt="GitHub avatar" loading="lazy" />
+            <strong>{gh?.name || 'GitHub'}</strong>
+            <span style={{ color: 'var(--muted)' }}>@{gh?.login || githubUser}</span>
+            <StatRow>
+              <StatPill title="Public repositories">📦 {gh?.public_repos ?? '—'}</StatPill>
+              <StatPill title="Followers">👥 {gh?.followers ?? '—'}</StatPill>
+            </StatRow>
+            {repos.length > 0 && (
+              <RepoList aria-label="Top repositories (by stars)">
+                {repos.map(r => (
+                  <RepoItem key={r.id}>⭐ {r.stargazers_count} · {r.name}</RepoItem>
+                ))}
+              </RepoList>
+            )}
+            {ghErr && <span style={{ color: 'var(--muted)', fontSize: 12 }}>Couldn’t load GitHub data</span>}
+          </SocialCard>
         </SocialGrid>
 
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 16 }}>
