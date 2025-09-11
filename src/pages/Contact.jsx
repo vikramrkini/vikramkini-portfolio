@@ -156,6 +156,38 @@ export default function Contact() {
     return () => { cancelled = true }
   }, [])
 
+  // Ensure LinkedIn badge renders when this SPA route mounts
+  useEffect(() => {
+    const badgeEl = document.querySelector('.LI-profile-badge')
+    if (!badgeEl) return
+
+    const render = () => {
+      if (typeof window !== 'undefined' && typeof window.LIRenderAll === 'function') {
+        try { window.LIRenderAll() } catch {}
+        return true
+      }
+      return false
+    }
+
+    if (!render()) {
+      // If script tag missing or still loading, add/poll briefly
+      const existing = document.querySelector('script[src*="platform.linkedin.com/badges/js/profile.js"]')
+      if (!existing) {
+        const s = document.createElement('script')
+        s.src = 'https://platform.linkedin.com/badges/js/profile.js'
+        s.async = true; s.defer = true
+        s.onload = () => { render() }
+        document.body.appendChild(s)
+      }
+      let elapsed = 0
+      const iv = setInterval(() => {
+        elapsed += 200
+        if (render() || elapsed > 3000) clearInterval(iv)
+      }, 200)
+      return () => clearInterval(iv)
+    }
+  }, [])
+
   // Tweak LinkedIn badge iframe once it is injected, to avoid extra white background
   useEffect(() => {
     const badge = document.querySelector('.LI-profile-badge')

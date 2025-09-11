@@ -13,6 +13,31 @@ const TiltCard = styled(Card)`
   }
 `
 
+const PageInner = styled.div`
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+`
+
+const ProjectsGrid = styled(Grid)`
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-items: stretch;
+`
+
+const ProjectCard = styled(TiltCard)`
+  padding: 22px;
+  text-align: left;
+  display: grid;
+  gap: 8px;
+`
+
+const Actions = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+`
+
 export default function Projects() {
   return (
     <Container>
@@ -20,24 +45,58 @@ export default function Projects() {
         <title>Projects — Vikram Kini</title>
         <meta name="description" content="Selected projects by Vikram Kini, including PumpJournal — a simple and focused workout tracking app." />
       </Helmet>
-      <Section>
-        <Heading>Projects</Heading>
-        <Subtext>A selection of work and experiments.</Subtext>
-      </Section>
-      <Grid>
-        <TiltCard>
-          <Heading as="h3" style={{ fontSize: 22, marginBottom: 6 }}>PumpJournal</Heading>
-          <Subtext>A simple, privacy-first workout journal.</Subtext>
-          <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
-            <LinkButton as={Link} to="/projects/pumpjournal">View details</LinkButton>
-            <MutedButton as={Link} to="/pumpjournal/support">Support</MutedButton>
-          </div>
-        </TiltCard>
-        <TiltCard>
-          <Heading as="h3" style={{ fontSize: 22, marginBottom: 6 }}>Portfolio Site</Heading>
-          <Subtext>This website — built with Vite, React, and styled-components.</Subtext>
-        </TiltCard>
-      </Grid>
+      <PageInner>
+        <Section style={{ marginBottom: 36 }}>
+          <Heading>Projects</Heading>
+          <Subtext>A selection of work and experiments.</Subtext>
+        </Section>
+        <ProjectsGrid>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>PumpJournal</Heading>
+            <Subtext style={{ margin: 0 }}>A simple, privacy-first workout journal.</Subtext>
+            {/* <Actions>
+              <LinkButton as={Link} to="/projects/pumpjournal">View details</LinkButton>
+              <MutedButton as={Link} to="/pumpjournal/support">Support</MutedButton>
+            </Actions> */}
+          </ProjectCard>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>BugBane</Heading>
+            <Subtext style={{ margin: 0 }}>A comprehensive mutation testing framework for Python.</Subtext>
+            <Actions>
+              <LinkButton href="https://github.com/vikramrkini/BugBane" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
+            </Actions>
+          </ProjectCard>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>Relay.io</Heading>
+            <Subtext style={{ margin: 0 }}>Light‑weight multi‑user video conferencing.</Subtext>
+            <Actions>
+              <LinkButton href="https://github.com/vikramrkini/Relay.io" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
+            </Actions>
+          </ProjectCard>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>WarCardGame</Heading>
+            <Subtext style={{ margin: 0 }}>Classic War card game built with SwiftUI.</Subtext>
+            <Actions>
+              <LinkButton href="https://github.com/vikramrkini/WarCardGame" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
+            </Actions>
+          </ProjectCard>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>TriQL</Heading>
+            <Subtext style={{ margin: 0 }}>Cross‑model DB query tool (Neo4j backend).</Subtext>
+            <Actions>
+              <LinkButton href="https://github.com/vikramrkini/TriQL" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
+            </Actions>
+          </ProjectCard>
+          <ProjectCard>
+            <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>Academic World Crawler</Heading>
+            <Subtext style={{ margin: 0 }}>Distributed crawler + backend for university faculty data.</Subtext>
+            <Actions>
+              <LinkButton href="https://github.com/vikramrkini/Academic-World-Data-Crawler" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
+            </Actions>
+          </ProjectCard>
+          
+        </ProjectsGrid>
+      </PageInner>
     </Container>
   )
 }
