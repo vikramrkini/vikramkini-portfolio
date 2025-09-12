@@ -57,6 +57,16 @@ export const Container = styled.div`
 
 export const Section = styled.section`
   margin: 24px 0 40px;
+  /* Improve list readability inside sections for plain lists */
+  ul:not([class]), ol:not([class]) {
+    margin: 8px auto 0;
+    padding-left: 1.25rem;
+    text-align: left;
+    list-style-position: outside;
+  }
+  ul:not([class]) { list-style-type: disc; }
+  ol:not([class]) { list-style-type: decimal; }
+  ul:not([class]) > li, ol:not([class]) > li { margin: 6px 0; }
 `
 
 export const Heading = styled.h1`
