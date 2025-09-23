@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import styled from 'styled-components'
 import { useEffect, useMemo, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Container, Heading, Subtext, Card, Grid, LinkButton, MutedButton } from '../styles/primitives.js'
 
 const Deck = styled.div`
@@ -127,6 +128,7 @@ const TimelineItem = styled(Card)`
 
 export default function Home() {
   const pdfUrl = `${import.meta.env.BASE_URL}Resume-Vikram.pdf`
+
   const sections = useMemo(() => ([
     { id: 'intro', label: 'Intro' },
     { id: 'highlights', label: 'Highlights' },
@@ -136,6 +138,7 @@ export default function Home() {
     { id: 'skills', label: 'Skills' },
     { id: 'cta', label: 'More' },
   ]), [])
+
   const [active, setActive] = useState(sections[0].id)
   const { scrollYProgress } = useScroll()
   const yHero = useTransform(scrollYProgress, [0, 0.25], [0, -20])
@@ -186,15 +189,16 @@ export default function Home() {
             viewport={{ once: false, amount: 0.8 }}
             transition={{ type: 'spring', stiffness: 120, damping: 16 }}
           >
-            <Heading as={motion.h1} style={{ y: yHero, opacity: oHero }}>I build AI‑powered, user‑first software.</Heading>
-            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>Software Engineer — Full‑stack · Mobile · Cloud</Subtext>
+            <Heading as={motion.h1} style={{ y: yHero, opacity: oHero }}>I build AI-powered, user-first software.</Heading>
+            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>Software Engineer — Full-stack · Mobile · Cloud</Subtext>
             <Subtext as={motion.p} style={{ y: ySub, opacity: oHero, maxWidth: 900, margin: '6px auto 10px' }}>
               I turn product ideas into performant web and mobile experiences — bringing AI assistance where it creates real value.
             </Subtext>
-            
+
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 16 }}>
               <LinkButton href={pdfUrl} target="_blank" rel="noopener">Download Resume</LinkButton>
-              <MutedButton href="#/contact">Contact Me</MutedButton>
+              {/* was: href="#/contact" */}
+              <MutedButton as={Link} to="/contact">Contact Me</MutedButton>
             </div>
           </SlideInner>
         </Slide>
@@ -260,7 +264,7 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <strong>I‑SAFE Enterprises LLC</strong> — Software Engineer I
+                <strong>I-SAFE Enterprises LLC</strong> — Software Engineer I
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2024 – Present · Drupal (Headless), Spring Boot, React.js, AWS</div>
                 <ul>
                   <li>Rebuilt ISAFE Direct with Drupal headless CMS + Spring Boot + React.js, scaling to 250+ districts.</li>
@@ -278,12 +282,12 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
-                <strong>I‑SAFE Enterprises LLC</strong> — Software Engineering Intern
+                <strong>I-SAFE Enterprises LLC</strong> — Software Engineering Intern
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2023 – Dec 2023 · JavaScript, React Native, Swift, Java, Drupal, Firebase, SQLServer, AWS EC2.</div>
                 <ul>
                   <li>Prototyped the MyOK mobile app with foundational UI flows and navigation.</li>
-                  <li>Implemented document signing, SSO authentication, and role‑based access.</li>
-                  <li>Built cross‑platform React Native interfaces and partnered with backend engineers for seamless integration.</li>
+                  <li>Implemented document signing, SSO authentication, and role-based access.</li>
+                  <li>Built cross-platform React Native interfaces and partnered with backend engineers for seamless integration.</li>
                 </ul>
               </TimelineItem>
 
@@ -293,10 +297,10 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.16 }}
               >
-                <strong>PrairieLearn Inc.</strong> — Part‑time Software Developer
+                <strong>PrairieLearn Inc.</strong> — Part-time Software Developer
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>May 2023 – Aug 2023 · Python, JavaScript, Node.js, Bootstrap, JSON, PLpgSQL </div>
                 <ul>
-                  <li>Streamlined deadline extensions with a late‑day tracking feature, reducing admin workload by 20%.</li>
+                  <li>Streamlined deadline extensions with a late-day tracking feature, reducing admin workload by 20%.</li>
                   <li>Collaborated with senior engineers to test, deploy, and maintain production features.</li>
                 </ul>
               </TimelineItem>
@@ -310,10 +314,10 @@ export default function Home() {
                 <strong>Airbook.io</strong> — Software Engineer
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>Nov 2021 – Jul 2022 · Python, Flask, PyTorch, SpaCy, JavaScript, Firebase, Docker, Kubernetes</div>
                 <ul>
-                  <li>Joined at inception and owned backend development and product features end‑to‑end.</li>
+                  <li>Joined at inception and owned backend development and product features end-to-end.</li>
                   <li>Built a collaborative BI & Analytics platform, attracting 500+ users in the first quarter.</li>
                   <li>Designed and deployed NLP pipelines with transformer models, improving analysis efficiency by 25%.</li>
-                  <li>Delivered 10+ third‑party integrations and optimized deployments with Docker + Kubernetes, cutting infra costs by 40%.</li>
+                  <li>Delivered 10+ third-party integrations and optimized deployments with Docker + Kubernetes, cutting infra costs by 40%.</li>
                 </ul>
               </TimelineItem>
             </Timeline>
@@ -335,7 +339,7 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <h3 style={{ margin: 0 }}>University of Illinois at Urbana‑Champaign</h3>
+                <h3 style={{ margin: 0 }}>University of Illinois at Urbana-Champaign</h3>
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>M.S. in Computer Science</div>
                 <div style={{ color: 'var(--muted)' }}>Aug 2022 – May 2024 · GPA: 4.00/4.00</div>
               </Card>
@@ -430,7 +434,7 @@ export default function Home() {
               <Chips>
                 <Chip>React.js</Chip>
                 <Chip>React Router</Chip>
-                <Chip>Styled‑Components</Chip>
+                <Chip>Styled-Components</Chip>
                 <Chip>Framer Motion</Chip>
                 <Chip>React Helmet Async</Chip>
                 <Chip>Node.js</Chip>
@@ -513,7 +517,8 @@ export default function Home() {
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.05 }}
             >See projects or grab the PDF</Subtext>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 12 }}>
-              <LinkButton href="#/projects">Projects</LinkButton>
+              {/* was: href="#/projects" */}
+              <LinkButton as={Link} to="/projects">Projects</LinkButton>
               <LinkButton href={pdfUrl} target="_blank" rel="noopener">Download/Print</LinkButton>
             </div>
           </SlideInner>
