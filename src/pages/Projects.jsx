@@ -55,8 +55,8 @@ export default function Projects() {
             <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>PumpJournal</Heading>
             <Subtext style={{ margin: 0 }}>A simple, privacy-first workout journal.</Subtext>
             <Actions>
-              <LinkButton as={Link} to="/projects/pumpjournal">View details</LinkButton>
-              <MutedButton as={Link} to="/pumpjournal/privacy">Privacy policy</MutedButton>
+              <LinkButton href="#/projects/pumpjournal">View details</LinkButton>
+              <MutedButton href="#/pumpjournal/privacy">Privacy policy</MutedButton>
             </Actions>
           </ProjectCard>
           <ProjectCard>
