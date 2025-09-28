@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStyle, AppShell, PageWrap } from './styles/primitives.js';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -14,7 +14,7 @@ import Resume from './routes/Resume.jsx';
 
 function App() {
   return (
-    <BrowserRouter basename="/">
+    <HashRouter>
       <GlobalStyle />
       <AppShell>
         <BackgroundFX />
@@ -33,7 +33,7 @@ function App() {
         </PageWrap>
         <Footer />
       </AppShell>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
