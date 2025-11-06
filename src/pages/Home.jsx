@@ -225,7 +225,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
                 <h3 style={{ marginTop: 0 }}>Platform Scale</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Delivered the ISAFE Direct document delivery system, now serving <b>250+ U.S. school districts</b> with secure workflows for compliance forms.</p>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Architected a compliance-driven document delivery platform now trusted by <b>1,000+ K-12 districts</b> for secure, auditable workflows.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -233,8 +233,8 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
-                <h3 style={{ marginTop: 0 }}>Mobile Growth</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Launched the MyOK iOS/Android app using <b>SwiftUI + Firebase</b>, driving a <b>20%</b> increase in engagement and crossing <b>500+ downloads</b> within weeks.</p>
+                <h3 style={{ marginTop: 0 }}>0→1 Product Launch</h3>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Designed and launched <b>PumpJournal</b>, an AI-powered fitness app that delivers personalized workout plans, logging, and HealthKit sync end-to-end.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -264,15 +264,17 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <strong>I-SAFE Enterprises LLC</strong> — Software Engineer I
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2024 – Present · Drupal (Headless), Spring Boot, React.js, AWS</div>
+                <strong>I-SAFE Enterprises LLC</strong> — Software Engineer
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2024 – Present · React.js, Spring Boot, AWS, React Native</div>
                 <ul>
-                  <li>Rebuilt ISAFE Direct with Drupal headless CMS + Spring Boot + React.js, scaling to 250+ districts.</li>
-                  <li>Launched MyOK mobile app (React Native + Spring Boot APIs), increasing user engagement by 20%.</li>
-                  <li>Integrated AI for document generation, announcements, and compliance, cutting manual effort by 66%.</li>
-                  <li>Built an AI assistant for platform help and document signing, reducing support requests by 38%.</li>
-                  <li>Architected modular microservices (Spring Boot + AWS Lambda + Headless CMS), accelerating delivery by 40%.</li>
-                  <li>Delivered SSO, push notifications, themes, and geolocation via a unified Firestore + Spring Boot backend.</li>
+                  <li>Architected a compliance-driven document delivery platform using React.js and Spring Boot, now adopted by 1,000+ K-12 districts.</li>
+                  <li>Developed and launched the MyOK mobile app (React Native), available on both App Store and Google Play.</li>
+                  <li>Built AI-powered document automation workflows processing 10K+ records monthly, cutting manual effort to near zero.</li>
+                  <li>Integrated AWS Lex and Lambda to create an AI assistant that reduced support tickets by 38% and improved form completion by 22%.</li>
+                  <li>Designed and deployed event-driven AWS microservices in Python, reducing deployment time by 49%.</li>
+                  <li>Unified 5+ SSO integrations across enterprise products, simplifying authentication and improving reliability.</li>
+                  <li>Automated marketing operations using n8n workflows, saving $85K annually in operational costs.</li>
+                  <li>Collaborated with cross-functional teams and district stakeholders to align features with compliance and user needs.</li>
                 </ul>
               </TimelineItem>
 
@@ -282,12 +284,11 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
-                <strong>I-SAFE Enterprises LLC</strong> — Software Engineering Intern
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2023 – Dec 2023 · JavaScript, React Native, Swift, Java, Drupal, Firebase, SQLServer, AWS EC2.</div>
+                <strong>PrairieLearn Inc.</strong> — Software Developer (Part-Time)
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>May 2023 – Aug 2023 · Node.js, React.js, PostgreSQL</div>
                 <ul>
-                  <li>Prototyped the MyOK mobile app with foundational UI flows and navigation.</li>
-                  <li>Implemented document signing, SSO authentication, and role-based access.</li>
-                  <li>Built cross-platform React Native interfaces and partnered with backend engineers for seamless integration.</li>
+                  <li>Built and shipped a deadline exception tracking system with Node.js, React.js, and PostgreSQL, saving instructors 13+ hours weekly.</li>
+                  <li>Enhanced user workflows and REST API endpoints to streamline course management for thousands of students.</li>
                 </ul>
               </TimelineItem>
 
@@ -297,27 +298,13 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.16 }}
               >
-                <strong>PrairieLearn Inc.</strong> — Part-time Software Developer
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>May 2023 – Aug 2023 · Python, JavaScript, Node.js, Bootstrap, JSON, PLpgSQL </div>
+                <strong>Airbook.io</strong> — Founding Software Engineer
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Nov 2021 – Jul 2022 · Python, Docker, Kubernetes, Transformer NLP</div>
                 <ul>
-                  <li>Streamlined deadline extensions with a late-day tracking feature, reducing admin workload by 20%.</li>
-                  <li>Collaborated with senior engineers to test, deploy, and maintain production features.</li>
-                </ul>
-              </TimelineItem>
-
-              <TimelineItem as={motion.div}
-                initial={{ opacity: 0, x: -14 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, amount: 0.35 }}
-                transition={{ duration: 0.5, ease: 'easeOut', delay: 0.24 }}
-              >
-                <strong>Airbook.io</strong> — Software Engineer
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Nov 2021 – Jul 2022 · Python, Flask, PyTorch, SpaCy, JavaScript, Firebase, Docker, Kubernetes</div>
-                <ul>
-                  <li>Joined at inception and owned backend development and product features end-to-end.</li>
-                  <li>Built a collaborative BI & Analytics platform, attracting 500+ users in the first quarter.</li>
-                  <li>Designed and deployed NLP pipelines with transformer models, improving analysis efficiency by 25%.</li>
-                  <li>Delivered 10+ third-party integrations and optimized deployments with Docker + Kubernetes, cutting infra costs by 40%.</li>
+                  <li>Developed the core backend and infrastructure for a BI & Analytics platform serving 500+ users in its first quarter.</li>
+                  <li>Implemented NLP pipelines with transformer models to automate insights extraction from data.</li>
+                  <li>Containerized and scaled microservices using Docker and Kubernetes, cutting deployment time from 30 -> 7 minutes.</li>
+                  <li>Collaborated with the founding team to shape product direction, scalability, and engineering best practices in a startup environment.</li>
                 </ul>
               </TimelineItem>
             </Timeline>
@@ -374,7 +361,7 @@ export default function Home() {
               >
                 <h3 style={{ marginTop: 0 }}>Course Assistants Lead</h3>
                 <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>
-                  Led a team of 12 Course Assistants, supporting 350+ students and helping achieve a 95% ‘A’ grade rate through mentorship and structured guidance.
+                  Led a team of 12 course assistants supporting 800+ students, driving a 95% 'A' grade rate through mentorship and training.
                 </p>
               </Card>
               <Card as={motion.div}
@@ -385,7 +372,7 @@ export default function Home() {
               >
                 <h3 style={{ marginTop: 0 }}>Mentor</h3>
                 <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>
-                  Mentored a team of 4 undergrads to deliver a 100% complete project, earning excellent faculty feedback.
+                  Mentored 4 undergraduates on a capstone project achieving 100% feature completion and high faculty recognition.
                 </p>
               </Card>
             </Grid>
