@@ -43,7 +43,7 @@ export default function Projects() {
     <Container>
       <Helmet>
         <title>Projects — Vikram Kini</title>
-        <meta name="description" content="Selected projects by Vikram Kini, including PumpJournal — a simple and focused workout tracking app." />
+        <meta name="description" content="Selected projects by Vikram Kini, including PumpJournal — an AI-assisted iOS fitness journal." />
       </Helmet>
       <PageInner>
         <Section style={{ marginBottom: 36 }}>
@@ -53,7 +53,7 @@ export default function Projects() {
         <ProjectsGrid>
           <ProjectCard>
             <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>PumpJournal</Heading>
-            <Subtext style={{ margin: 0 }}>A simple, privacy-first workout journal.</Subtext>
+            <Subtext style={{ margin: 0 }}>AI-assisted iOS fitness journal with real-time HealthKit sync and cloud backup.</Subtext>
             <Actions>
               <LinkButton href="#/projects/pumpjournal">View details</LinkButton>
               <MutedButton href="#/pumpjournal/privacy">Privacy policy</MutedButton>
@@ -82,7 +82,7 @@ export default function Projects() {
           </ProjectCard>
           <ProjectCard>
             <Heading as="h3" style={{ fontSize: 22, margin: 0 }}>TriQL</Heading>
-            <Subtext style={{ margin: 0 }}>Cross‑model DB query tool (Neo4j backend).</Subtext>
+            <Subtext style={{ margin: 0 }}>Beginner-friendly database learning tool with visual query execution.</Subtext>
             <Actions>
               <LinkButton href="https://github.com/vikramrkini/TriQL" target="_blank" rel="noopener noreferrer">GitHub</LinkButton>
             </Actions>

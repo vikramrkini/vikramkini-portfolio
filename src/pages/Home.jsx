@@ -170,7 +170,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Portfolio — Vikram Kini</title>
-        <meta name="description" content="Professional software engineer portfolio — React, Swift, and Spring Boot. View resume and experience." />
+        <meta name="description" content="Full Stack Engineer with 3+ years building production web and mobile apps. View resume and experience." />
       </Helmet>
 
       <MiniNav aria-label="Resume sections">
@@ -189,10 +189,10 @@ export default function Home() {
             viewport={{ once: false, amount: 0.8 }}
             transition={{ type: 'spring', stiffness: 120, damping: 16 }}
           >
-            <Heading as={motion.h1} style={{ y: yHero, opacity: oHero }}>I build AI-powered, user-first software.</Heading>
-            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>Software Engineer — Full-stack · Mobile · Cloud</Subtext>
+            <Heading as={motion.h1} style={{ y: yHero, opacity: oHero }}>Full Stack Engineer building AI-enabled web and mobile products.</Heading>
+            <Subtext as={motion.p} style={{ y: ySub, opacity: oHero }}>3+ years shipping React, React Native, and Spring Boot applications for enterprise customers.</Subtext>
             <Subtext as={motion.p} style={{ y: ySub, opacity: oHero, maxWidth: 900, margin: '6px auto 10px' }}>
-              I turn product ideas into performant web and mobile experiences — bringing AI assistance where it creates real value.
+              Known for measurable gains in performance, reliability, and release workflow.
             </Subtext>
 
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 16 }}>
@@ -225,7 +225,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
                 <h3 style={{ marginTop: 0 }}>Platform Scale</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Architected a compliance-driven document delivery platform now trusted by <b>1,000+ K-12 districts</b> for secure, auditable workflows.</p>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Architected a React compliance platform integrated with Spring Boot microservices, adopted by <b>1,000+ K-12 clients</b> and serving ~75,000 users.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -233,8 +233,8 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
-                <h3 style={{ marginTop: 0 }}>0→1 Product Launch</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Designed and launched <b>PumpJournal</b>, an AI-powered fitness app that delivers personalized workout plans, logging, and HealthKit sync end-to-end.</p>
+                <h3 style={{ marginTop: 0 }}>AI Support at Scale</h3>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Improved support resolution speed by <b>38%</b> by shipping an AI in-app assistant using AWS Lex and LLM integrations.</p>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -242,8 +242,8 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.16 }}
               >
-                <h3 style={{ marginTop: 0 }}>Academic Excellence</h3>
-                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Earned a <b>4.0/4.0 GPA</b> in the M.S. Computer Science program at UIUC, excelling in Cloud Computing, Applied ML, and Software Engineering.</p>
+                <h3 style={{ marginTop: 0 }}>PumpJournal Launch</h3>
+                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Shipped <b>PumpJournal</b>, an AI-assisted iOS fitness journal with real-time HealthKit sync and cloud backup; 300+ downloads in the first 2 weeks.</p>
               </Card>
             </Grid>
           </SlideInner>
@@ -264,17 +264,17 @@ export default function Home() {
                 viewport={{ once: false, amount: 0.35 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <strong>I-SAFE Enterprises LLC</strong> — Software Engineer
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2024 – Present · React.js, Spring Boot, AWS, React Native</div>
+                <strong>ISAFE Enterprises LLC</strong> — Software Engineer
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Jun 2023 - Present · React.js, Spring Boot, AWS, React Native</div>
                 <ul>
-                  <li>Architected a compliance-driven document delivery platform using React.js and Spring Boot, now adopted by 1,000+ K-12 districts.</li>
-                  <li>Developed and launched the MyOK mobile app (React Native), available on both App Store and Google Play.</li>
-                  <li>Built AI-powered document automation workflows processing 10K+ records monthly, cutting manual effort to near zero.</li>
-                  <li>Integrated AWS Lex and Lambda to create an AI assistant that reduced support tickets by 38% and improved form completion by 22%.</li>
-                  <li>Designed and deployed event-driven AWS microservices in Python, reducing deployment time by 49%.</li>
-                  <li>Unified 5+ SSO integrations across enterprise products, simplifying authentication and improving reliability.</li>
-                  <li>Automated marketing operations using n8n workflows, saving $85K annually in operational costs.</li>
-                  <li>Collaborated with cross-functional teams and district stakeholders to align features with compliance and user needs.</li>
+                  <li>Architected a React compliance platform integrated with Spring Boot microservices, adopted by 1,000+ K-12 clients and serving ~75,000 users with privacy and governance.</li>
+                  <li>Launched a React Native iOS/Android app on both app stores with shared UI components for consistent UX.</li>
+                  <li>Reduced deployment time 49% by deploying event-driven AWS Lambda (Python) microservices for backend workflows.</li>
+                  <li>Integrated REST APIs and implemented secure auth across 5+ SSO providers, improving login reliability and access.</li>
+                  <li>Improved support resolution speed 38% by shipping an AI in-app assistant using AWS Lex and LLM integrations.</li>
+                  <li>Reduced frontend error rate 36% with Jest/RTL and Cypress E2E tests, tracked in Sentry.</li>
+                  <li>Automated GitLab CI/CD for Agile releases, cutting steps from 9 to 2 and dev-to-release time from ~2 hrs to 15 mins.</li>
+                  <li>Optimized MySQL 8 schemas on AWS RDS and hardened Apache with Fail2Ban plus AWS WAF/Sucuri, cutting p95 latency from ~420 ms to ~160 ms and blocking ~1,300 suspicious requests/day.</li>
                 </ul>
               </TimelineItem>
 
@@ -285,10 +285,10 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
               >
                 <strong>PrairieLearn Inc.</strong> — Software Developer (Part-Time)
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>May 2023 – Aug 2023 · Node.js, React.js, PostgreSQL</div>
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>May 2023 - Aug 2023 · React.js, Node.js</div>
                 <ul>
-                  <li>Built and shipped a deadline exception tracking system with Node.js, React.js, and PostgreSQL, saving instructors 13+ hours weekly.</li>
-                  <li>Enhanced user workflows and REST API endpoints to streamline course management for thousands of students.</li>
+                  <li>Designed and implemented React.js and Node.js modules to streamline deadline management, cutting instructor workload by 13+ hours weekly.</li>
+                  <li>Contributed to RESTful API enhancements and responsive UI components aligned with accessibility standards.</li>
                 </ul>
               </TimelineItem>
 
@@ -299,12 +299,10 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: 'easeOut', delay: 0.16 }}
               >
                 <strong>Airbook.io</strong> — Founding Software Engineer
-                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Nov 2021 – Jul 2022 · Python, Docker, Kubernetes, Transformer NLP</div>
+                <div style={{ color: 'var(--muted)', marginTop: 6 }}>Nov 2021 - Jul 2022 · React.js, Flask, Docker, Kubernetes</div>
                 <ul>
-                  <li>Developed the core backend and infrastructure for a BI & Analytics platform serving 500+ users in its first quarter.</li>
-                  <li>Implemented NLP pipelines with transformer models to automate insights extraction from data.</li>
-                  <li>Containerized and scaled microservices using Docker and Kubernetes, cutting deployment time from 30 -> 7 minutes.</li>
-                  <li>Collaborated with the founding team to shape product direction, scalability, and engineering best practices in a startup environment.</li>
+                  <li>Developed React and Flask-based BI dashboards and data visualizations used by 500+ early paid users.</li>
+                  <li>Deployed containerized microservices using Docker and Kubernetes, reducing deploy time from 30 to 7 minutes.</li>
                 </ul>
               </TimelineItem>
             </Timeline>
@@ -328,7 +326,7 @@ export default function Home() {
               >
                 <h3 style={{ margin: 0 }}>University of Illinois at Urbana-Champaign</h3>
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>M.S. in Computer Science</div>
-                <div style={{ color: 'var(--muted)' }}>Aug 2022 – May 2024 · GPA: 4.00/4.00</div>
+                <div style={{ color: 'var(--muted)' }}>Aug 2022 - May 2024 · GPA: 4.0/4.0</div>
               </Card>
               <Card as={motion.div}
                 initial={{ opacity: 0, y: 14 }}
@@ -338,7 +336,7 @@ export default function Home() {
               >
                 <h3 style={{ margin: 0 }}>University of Mumbai</h3>
                 <div style={{ color: 'var(--muted)', marginTop: 6 }}>B.E. in Computer Science and Engineering</div>
-                <div style={{ color: 'var(--muted)' }}>Aug 2018 – Jun 2021 · GPA: 9.84/10</div>
+                <div style={{ color: 'var(--muted)' }}>Aug 2018 - Jun 2021 · GPA: 3.96/4.0</div>
               </Card>
             </Grid>
           </SlideInner>
@@ -372,7 +370,7 @@ export default function Home() {
               >
                 <h3 style={{ marginTop: 0 }}>Mentor</h3>
                 <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>
-                  Mentored 4 undergraduates on a capstone project achieving 100% feature completion and high faculty recognition.
+                  Mentored a team of 4 undergrads to deliver a 100% complete project, earning excellent faculty feedback.
                 </p>
               </Card>
             </Grid>
@@ -400,13 +398,15 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.45, ease: 'easeOut' }}
             >
-              <GroupTitle>Languages</GroupTitle>
+              <GroupTitle>Programming Languages</GroupTitle>
               <Chips>
                 <Chip>JavaScript</Chip>
                 <Chip>TypeScript</Chip>
                 <Chip>Python</Chip>
                 <Chip>Java</Chip>
-                <Chip>PHP</Chip>
+                <Chip>SQL</Chip>
+                <Chip>HTML</Chip>
+                <Chip>CSS</Chip>
                 <Chip>Swift</Chip>
               </Chips>
             </SkillGroup>
@@ -417,20 +417,15 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.05 }}
             >
-              <GroupTitle>Frameworks</GroupTitle>
+              <GroupTitle>Frameworks and Libraries</GroupTitle>
               <Chips>
                 <Chip>React.js</Chip>
-                <Chip>React Router</Chip>
-                <Chip>Styled-Components</Chip>
-                <Chip>Framer Motion</Chip>
-                <Chip>React Helmet Async</Chip>
-                <Chip>Node.js</Chip>
                 <Chip>React Native</Chip>
                 <Chip>Next.js</Chip>
-                <Chip>Redux</Chip>
-                <Chip>Flask</Chip>
+                <Chip>Node.js</Chip>
                 <Chip>Spring Boot</Chip>
-                <Chip>Bootstrap</Chip>
+                <Chip>Flask</Chip>
+                <Chip>Django</Chip>
                 <Chip>Drupal</Chip>
               </Chips>
             </SkillGroup>
@@ -441,13 +436,13 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
             >
-              <GroupTitle>Database Technologies</GroupTitle>
+              <GroupTitle>Databases</GroupTitle>
               <Chips>
-                <Chip>Firestore</Chip>
-                <Chip>MongoDB</Chip>
-                <Chip>MySQL</Chip>
                 <Chip>PostgreSQL</Chip>
+                <Chip>MySQL</Chip>
+                <Chip>MongoDB</Chip>
                 <Chip>Neo4j</Chip>
+                <Chip>Firestore</Chip>
               </Chips>
             </SkillGroup>
 
@@ -457,11 +452,11 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.15 }}
             >
-              <GroupTitle>Cloud Platforms / BaaS</GroupTitle>
+              <GroupTitle>Cloud and Platforms</GroupTitle>
               <Chips>
+                <Chip>AWS</Chip>
+                <Chip>Google Cloud Platform</Chip>
                 <Chip>Firebase</Chip>
-                <Chip>AWS (EC2, Lambda, RDS, Comprehend, Lex)</Chip>
-                <Chip>Kubernetes</Chip>
               </Chips>
             </SkillGroup>
 
@@ -471,19 +466,20 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.2 }}
             >
-              <GroupTitle>Tools & DevOps</GroupTitle>
+              <GroupTitle>DevOps and Tools</GroupTitle>
               <Chips>
-                <Chip>Vite</Chip>
-                <Chip>ESLint</Chip>
-                <Chip>GitHub Pages</Chip>
-                <Chip>GitHub Actions</Chip>
                 <Chip>Git</Chip>
-                <Chip>GitLab CI/CD</Chip>
                 <Chip>Docker</Chip>
+                <Chip>Kubernetes</Chip>
+                <Chip>Babel</Chip>
+                <Chip>VS Code</Chip>
                 <Chip>Postman</Chip>
-                <Chip>PyTest</Chip>
-                <Chip>Jest</Chip>
                 <Chip>JIRA</Chip>
+                <Chip>Copilot</Chip>
+                <Chip>Cypress</Chip>
+                <Chip>Jest</Chip>
+                <Chip>CI/CD</Chip>
+                <Chip>Agile</Chip>
               </Chips>
             </SkillGroup>
           </SlideInner>
