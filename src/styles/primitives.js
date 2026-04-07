@@ -2,38 +2,56 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    --bg: #0b0f15;
-    --surface: #121826;
-    --text: #e8eefc;
-    --muted: #a9b4cc;
-    --primary: #5aa2ff;
-    --primary-contrast: #071425;
-    --focus: #ffd166;
+    --bg-base:        #07070f;
+    --bg-surface:     #0f0f1a;
+    --violet:         #7c3aed;
+    --violet-muted:   #a78bfa;
+    --cyan:           #06b6d4;
+    --cyan-muted:     #67e8f9;
+    --text:           #ffffff;
+    --text-muted:     rgba(255,255,255,0.45);
+    --text-faint:     rgba(255,255,255,0.25);
+    --glass-bg:       rgba(255,255,255,0.03);
+    --glass-border:   rgba(255,255,255,0.07);
+    --gradient-brand: linear-gradient(135deg, #7c3aed, #06b6d4);
+    --gradient-text:  linear-gradient(135deg, #fff 40%, rgba(167,139,250,0.6));
+    --font-display:   'Syne', sans-serif;
+    --font-body:      'DM Sans', sans-serif;
   }
-  * { box-sizing: border-box; }
-  html, body, #root { width: 100%; min-width: 100vw; height: 100%; min-height: 100%; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body, #root {
+    width: 100%;
+    min-width: 100vw;
+    height: 100%;
+  }
+
   html { scroll-behavior: smooth; }
+
   body {
     margin: 0;
     min-height: 100svh;
-    min-width: 100vw;
-    display: block;
+    background: var(--bg-base);
     color: var(--text);
-    background: radial-gradient(1200px 600px at 10% -10%, #1a2338, transparent 60%),
-                radial-gradient(1000px 500px at 90% -20%, #12203a, transparent 50%),
-                var(--bg);
-    background-repeat: no-repeat;
-    overflow-x: hidden;
-    font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    font: 300 16px/1.7 var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
-  body.deck { scroll-snap-type: y mandatory; }
+
+  /* Hide default cursor only on pointer devices — custom cursor takes over */
+  @media (pointer: fine) {
+    *, a, button { cursor: none; }
+  }
+
   a { color: inherit; text-decoration: none; }
-  a:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
-  button:focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 `
 
@@ -46,141 +64,10 @@ export const AppShell = styled.div`
 export const PageWrap = styled.main`
   flex: 1;
   width: 100%;
-  display: block;
 `
 
-export const Container = styled.div`
-  width: 100%;
-  padding: 24px 0;
-  text-align: center;
-`
-
-export const Section = styled.section`
-  margin: 24px 0 40px;
-  /* Improve list readability inside sections for plain lists */
-  ul:not([class]), ol:not([class]) {
-    margin: 8px auto 0;
-    padding-left: 1.25rem;
-    text-align: left;
-    list-style-position: outside;
-  }
-  ul:not([class]) { list-style-type: disc; }
-  ol:not([class]) { list-style-type: decimal; }
-  ul:not([class]) > li, ol:not([class]) > li { margin: 6px 0; }
-`
-
-export const Heading = styled.h1`
-  margin: 0 0 8px;
-  font-size: clamp(28px, 6vw, 44px);
-  letter-spacing: -0.02em;
-`
-
-export const Subtext = styled.p`
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-size: clamp(16px, 2.5vw, 18px);
-`
-
-export const LinkButton = styled.a`
-  display: inline-block;
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: var(--primary);
-  color: var(--primary-contrast);
-  font-weight: 600;
-  transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
-  box-shadow: 0 6px 18px rgba(90,162,255,0.25);
-  &:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(90,162,255,0.32); }
-  &:active { transform: translateY(0); }
-`
-
-export const MutedButton = styled(LinkButton)`
-  background: transparent;
-  color: var(--text);
-  border: 1px solid #26324a;
-  box-shadow: none;
-`
-
-export const Card = styled.div`
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%), var(--surface);
-  border: 1px solid #1e2941;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-`
-
-export const Grid = styled.div`
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  justify-items: center;
-`
-
-export const Nav = styled.nav`
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(11, 15, 21, 0.7);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid #19233a;
-  width: 100%;
-`
-
-export const NavInner = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding-top: 14px;
-  padding-bottom: 14px;
-`
-
-export const NavLinks = styled.div`
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  a {
-    position: relative;
-    padding: 8px 10px;
-    border-radius: 8px;
-    color: var(--muted);
-    transition: color .2s ease, text-shadow .2s ease;
-  }
-  a::after {
-    content: '';
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: 4px;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, transparent, #6aa5ff, #b88cff, #64fbd2, transparent);
-    opacity: 0;
-    transform: scaleX(0.4);
-    transition: opacity .25s ease, transform .25s ease;
-  }
-  a[aria-current="page"], a.active {
-    color: var(--text);
-    background: #1a2338;
-    text-shadow: 0 0 12px rgba(136,178,255,0.35);
-  }
-  a:hover::after { opacity: .9; transform: scaleX(1); }
-`
-
-export const FooterWrap = styled.footer`
-  border-top: 1px solid #19233a;
-  background: rgba(11,15,21,0.6);
-  width: 100%;
-`
-
-export const FooterInner = styled(Container)`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-top: 16px;
-  padding-bottom: 20px;
-  color: var(--muted);
+export const GlassCard = styled.div`
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
 `
