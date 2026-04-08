@@ -231,6 +231,89 @@ const SkillChip = styled.span`
   color: ${({ $hi }) => $hi ? 'var(--violet-muted)' : 'var(--text-muted)'};
 `
 
+/* ── Experience section ── */
+const ExperienceStrip = styled.section`
+  padding: clamp(52px, 7vw, 88px) clamp(24px, 7vw, 96px);
+`
+
+const ExperienceInner = styled(motion.div)`
+  max-width: 920px;
+  margin: 0 auto;
+`
+
+const ExpLabel = styled.div`
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--violet-muted);
+  margin-bottom: 32px;
+`
+
+const ExpList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+`
+
+const ExpItem = styled(motion.div)`
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+
+  &:last-child { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+`
+
+const ExpMeta = styled.div``
+
+const ExpCompany = styled.div`
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+`
+
+const ExpPeriod = styled.div`
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-faint);
+`
+
+const ExpBody = styled.div``
+
+const ExpRole = styled.div`
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+`
+
+const ExpBullets = styled.ul`
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+`
+
 /* ── Animation helpers ── */
 const ease = [0.25, 0.46, 0.45, 0.94]
 
@@ -239,6 +322,30 @@ const fadeUp = (delay) => ({
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, delay, ease },
 })
+
+const EXPERIENCE = [
+  {
+    company: 'ISAFE Enterprises LLC',
+    role: 'Full Stack Engineer',
+    period: '2023 – Present',
+    bullets: [
+      'Architected a React compliance platform integrated with Spring Boot microservices for 1,000+ K-12 clients and ~75,000 users.',
+      'Launched a React Native iOS/Android app serving the same client base.',
+      'Shipped AWS Lambda services that cut deployment time by 49%.',
+      'Delivered an AI assistant using AWS Lex and LLM integrations, improving support resolution speed by 38%.',
+      'Integrated secure auth across 5+ SSO providers; reduced frontend error rates with Jest/RTL and Cypress.',
+    ],
+  },
+  {
+    company: 'Airbook.io',
+    role: 'Software Engineer',
+    period: '2022 – 2023',
+    bullets: [
+      'Developed React and Flask BI dashboards adopted by 500+ early paid users.',
+      'Deployed Docker/Kubernetes microservices that reduced deploy time from 30 to 7 minutes.',
+    ],
+  },
+]
 
 const SKILLS = [
   { label: 'React', hi: true },
@@ -318,11 +425,9 @@ export default function Home() {
           </div>
           <div>
             <AboutBody>
-              MS Computer Science, UIUC (4.0 GPA). At ISAFE Enterprises I built a React
-              compliance platform for 75,000+ users and an AI assistant that cut support
-              resolution time 38%. At Airbook.io I shipped BI dashboards and reduced
-              deploy times from 30 to 7 minutes. Outside work I make apps like PumpJournal
-              — 300+ downloads in its first 2 weeks.
+              MS Computer Science, UIUC (4.0 GPA). I build reliable, maintainable
+              software — and think obsessively about how it feels to use. Currently
+              focused on AI-enabled applications and mobile.
             </AboutBody>
             <SkillsWrap>
               {SKILLS.map(({ label, hi }) => (
@@ -332,6 +437,39 @@ export default function Home() {
           </div>
         </AboutGrid>
       </AboutStrip>
+
+      <ExperienceStrip>
+        <ExperienceInner
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, ease }}
+        >
+          <ExpLabel>Experience</ExpLabel>
+          <ExpList>
+            {EXPERIENCE.map(({ company, role, period, bullets }) => (
+              <ExpItem
+                key={company}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, ease }}
+              >
+                <ExpMeta>
+                  <ExpCompany>{company}</ExpCompany>
+                  <ExpPeriod>{period}</ExpPeriod>
+                </ExpMeta>
+                <ExpBody>
+                  <ExpRole>{role}</ExpRole>
+                  <ExpBullets>
+                    {bullets.map((b) => <li key={b}>{b}</li>)}
+                  </ExpBullets>
+                </ExpBody>
+              </ExpItem>
+            ))}
+          </ExpList>
+        </ExperienceInner>
+      </ExperienceStrip>
     </>
   )
 }
