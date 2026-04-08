@@ -19,24 +19,24 @@ const HeroSection = styled.section`
 const HeroImage = styled.div`
   position: absolute;
   inset: 0;
-  left: 25%;
   z-index: 1;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center top;
     filter: grayscale(1);
-    opacity: 0.6;
+    opacity: 0.45;
     transition: filter 1000ms ease, opacity 1000ms ease;
-    mask-image: linear-gradient(to right, transparent 0%, black 40%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+    /* Vignette mask — center visible, edges fade into dark bg */
+    mask-image: radial-gradient(ellipse 65% 85% at 55% 45%, black 25%, rgba(0,0,0,0.6) 55%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 65% 85% at 55% 45%, black 25%, rgba(0,0,0,0.6) 55%, transparent 80%);
   }
 
   &:hover img {
     filter: grayscale(0);
-    opacity: 1;
+    opacity: 0.65;
   }
 
   @media (max-width: 768px) {
@@ -48,7 +48,10 @@ const HeroGradientOverlay = styled.div`
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(to right, #07070f 30%, rgba(7, 7, 15, 0.4) 65%, transparent 100%);
+  /* Strong left vignette so text stays readable; subtle overall darkening */
+  background:
+    linear-gradient(to right, #07070f 18%, rgba(7,7,15,0.55) 45%, rgba(7,7,15,0.1) 75%, #07070f 100%),
+    linear-gradient(to bottom, rgba(7,7,15,0.3) 0%, transparent 20%, transparent 80%, rgba(7,7,15,0.6) 100%);
   pointer-events: none;
 `
 
@@ -69,7 +72,7 @@ const TechIcon = styled.div`
   left: ${({ $left }) => $left || 'auto'};
   right: ${({ $right }) => $right || 'auto'};
   bottom: ${({ $bottom }) => $bottom || 'auto'};
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
 
   svg { width: 100%; height: 100%; }
@@ -242,14 +245,16 @@ const IconPostgres = () => (
 )
 
 const TECH_ICONS = [
-  { Icon: IconJS,       $top: '18%',  $left: '32%',  $delay: '0s',   $opacity: 0.3  },
-  { Icon: IconTS,       $top: '12%',  $left: '55%',  $delay: '1s',   $opacity: 0.25 },
-  { Icon: IconReact,    $top: '35%',  $left: '60%',  $delay: '1.5s', $opacity: 0.35 },
-  { Icon: IconNextJS,   $top: '55%',  $left: '42%',  $delay: '2s',   $opacity: 0.25 },
-  { Icon: IconPython,   $top: '65%',  $left: '62%',  $delay: '3s',   $opacity: 0.3  },
-  { Icon: IconAWS,      $top: '25%',  $left: '72%',  $delay: '4s',   $opacity: 0.2  },
-  { Icon: IconVercel,   $top: '48%',  $left: '78%',  $delay: '5s',   $opacity: 0.3  },
-  { Icon: IconPostgres, $top: '72%',  $left: '52%',  $delay: '6s',   $opacity: 0.25 },
+  /* Around the face (center/right of screen) */
+  { Icon: IconReact,    $top: '15%',  $left: '52%',  $delay: '0s',   $opacity: 0.35 },
+  { Icon: IconJS,       $top: '22%',  $left: '72%',  $delay: '1s',   $opacity: 0.3  },
+  { Icon: IconTS,       $top: '42%',  $left: '75%',  $delay: '1.5s', $opacity: 0.28 },
+  { Icon: IconNextJS,   $top: '62%',  $left: '65%',  $delay: '2s',   $opacity: 0.3  },
+  { Icon: IconAWS,      $top: '68%',  $left: '45%',  $delay: '3s',   $opacity: 0.25 },
+  /* Near the text (left side) */
+  { Icon: IconPython,   $top: '20%',  $left: '34%',  $delay: '4s',   $opacity: 0.28 },
+  { Icon: IconVercel,   $top: '72%',  $left: '28%',  $delay: '5s',   $opacity: 0.25 },
+  { Icon: IconPostgres, $top: '55%',  $left: '82%',  $delay: '6s',   $opacity: 0.22 },
 ]
 
 /* ─────────────────────────────────────────────
