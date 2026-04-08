@@ -1,130 +1,217 @@
 import { Helmet } from 'react-helmet-async'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
-import OrbBackground from '../components/OrbBackground.jsx'
 
 const ContactSection = styled.section`
-  position: relative;
+  background: var(--bg-base);
   min-height: 100svh;
+  padding: clamp(5rem, 10vw, 10rem) 6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 120px 24px 80px;
-  overflow: hidden;
+
+  @media (max-width: 1024px) { padding: 6rem 3rem; }
+  @media (max-width: 768px)  { padding: 5rem 1.5rem; }
 `
 
 const Inner = styled(motion.div)`
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 520px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-`
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
 
-const Label = styled(motion.div)`
-  font-family: var(--font-display);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--violet-muted);
-  margin-bottom: 16px;
-`
-
-const Title = styled(motion.h1)`
-  margin: 0 0 16px;
-  font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  line-height: 1;
-`
-
-const Sub = styled(motion.p)`
-  margin: 0 0 34px;
-  font-family: var(--font-body);
-  font-size: 16px;
-  color: var(--text-muted);
-  line-height: 1.75;
-  font-weight: 300;
-  max-width: 400px;
-`
-
-const EmailBtn = styled(motion.a)`
-  display: inline-block;
-  padding: 14px 34px;
-  border-radius: 12px;
-  background: var(--gradient-brand);
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  box-shadow: 0 0 32px rgba(124,58,237,0.4);
-  margin-bottom: 20px;
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
-
-  &:hover {
-    box-shadow: 0 0 48px rgba(124,58,237,0.65);
-    transform: translateY(-1px);
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 `
 
-const LinksRow = styled(motion.div)`
+/* Left column */
+const ContactLeft = styled.div``
+
+const ContactHeadline = styled.h1`
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2.5rem, 5vw, 4.375rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  margin: 0 0 2rem;
+
+  span { color: var(--gold); }
+`
+
+const ContactEmail = styled.a`
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  transition: color 500ms ease;
+
+  &:hover { color: var(--gold); }
+`
+
+const SocialRow = styled.div`
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  gap: 2rem;
   flex-wrap: wrap;
 `
 
-const LinkBtn = styled.a`
-  padding: 9px 20px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--glass-border);
-  color: var(--text-muted);
+const SocialLink = styled.a`
   font-family: var(--font-body);
-  font-size: 13px;
-  transition: background 0.2s ease, color 0.2s ease;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 500ms ease;
 
-  &:hover {
-    background: rgba(255,255,255,0.08);
-    color: var(--text);
-  }
+  &:hover { color: var(--text); }
 `
+
+/* Right column — form */
+const FormCard = styled.div`
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 3rem;
+
+  @media (max-width: 480px) { padding: 2rem 1.5rem; }
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+`
+
+const FieldWrap = styled.div`
+  position: relative;
+`
+
+const FieldLabel = styled.label`
+  position: absolute;
+  left: 0;
+  top: ${({ $active }) => $active ? '-1rem' : '0.9rem'};
+  font-family: var(--font-body);
+  font-size: ${({ $active }) => $active ? '0.625rem' : '0.875rem'};
+  letter-spacing: ${({ $active }) => $active ? '0.2em' : '0.05em'};
+  text-transform: ${({ $active }) => $active ? 'uppercase' : 'none'};
+  color: ${({ $active }) => $active ? 'var(--gold)' : 'var(--text-muted)'};
+  transition: all 300ms ease;
+  pointer-events: none;
+`
+
+const FieldInput = styled.input`
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color 300ms ease;
+
+  &:focus { border-color: var(--gold); }
+`
+
+const FieldTextarea = styled.textarea`
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 0;
+  outline: none;
+  resize: none;
+  min-height: 100px;
+  transition: border-color 300ms ease;
+
+  &:focus { border-color: var(--gold); }
+`
+
+const SubmitBtn = styled.button`
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--gold);
+  color: #0a0a0a;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  transition: opacity 500ms ease;
+
+  &:hover { opacity: 0.85; }
+  &:disabled { opacity: 0.5; }
+`
+
+const SuccessMsg = styled.p`
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--gold);
+  text-align: center;
+  margin: 0;
+`
+
+function FloatingField({ id, label, type = 'text', textarea = false, value, onChange }) {
+  const active = value.length > 0
+
+  return (
+    <FieldWrap>
+      <FieldLabel htmlFor={id} $active={active}>{label}</FieldLabel>
+      {textarea ? (
+        <FieldTextarea id={id} value={value} onChange={onChange} rows={4} />
+      ) : (
+        <FieldInput id={id} type={type} value={value} onChange={onChange} />
+      )}
+    </FieldWrap>
+  )
+}
 
 const ease = [0.25, 0.46, 0.45, 0.94]
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.12 } },
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease } },
 }
 
-const CONTACT_ORBS = [
-  {
-    $size: 420,
-    $color: 'radial-gradient(circle, rgba(124,58,237,0.25), transparent 70%)',
-    $top: '-100px',
-    $right: '-100px',
-  },
-  {
-    $size: 320,
-    $color: 'radial-gradient(circle, rgba(6,182,212,0.2), transparent 70%)',
-    $bottom: '-80px',
-    $left: '-60px',
-  },
-]
-
 export default function Contact() {
-  const pdfUrl = `${import.meta.env.BASE_URL}Resume-Vikram.pdf`
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSending(true)
+    // mailto fallback — no backend required
+    const to = 'vrkini23@gmail.com'
+    const subj = encodeURIComponent(`Portfolio message from ${name}`)
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)
+    window.location.href = `mailto:${to}?subject=${subj}&body=${body}`
+    setTimeout(() => { setSent(true); setSending(false) }, 500)
+  }
 
   return (
     <>
@@ -134,44 +221,69 @@ export default function Contact() {
       </Helmet>
 
       <ContactSection>
-        <OrbBackground orbs={CONTACT_ORBS} noiseOpacity={0.03} />
-
         <Inner
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <Label variants={itemVariants}>Get in touch</Label>
-          <Title variants={itemVariants}>Let&apos;s build something.</Title>
-          <Sub variants={itemVariants}>
-            Open to full-time roles, freelance projects, and interesting
-            conversations. Best reached by email.
-          </Sub>
-          <EmailBtn
-            variants={itemVariants}
-            href="mailto:vrkini23@gmail.com"
-          >
-            vrkini23@gmail.com →
-          </EmailBtn>
-          <LinksRow variants={itemVariants}>
-            <LinkBtn
-              href="https://linkedin.com/in/vikramkini"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn ↗
-            </LinkBtn>
-            <LinkBtn
-              href="https://github.com/vikramrkini"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub ↗
-            </LinkBtn>
-            <LinkBtn href={pdfUrl} target="_blank" rel="noopener">
-              Resume ↗
-            </LinkBtn>
-          </LinksRow>
+          <ContactLeft>
+            <motion.div variants={itemVariants}>
+              <ContactHeadline>
+                Let&apos;s build something <span>enduring.</span>
+              </ContactHeadline>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <ContactEmail href="mailto:vrkini23@gmail.com">
+                vrkini23@gmail.com
+              </ContactEmail>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <SocialRow>
+                <SocialLink href="https://linkedin.com/in/vikramkini" target="_blank" rel="noopener noreferrer">
+                  LinkedIn ↗
+                </SocialLink>
+                <SocialLink href="https://github.com/vikramrkini" target="_blank" rel="noopener noreferrer">
+                  GitHub ↗
+                </SocialLink>
+              </SocialRow>
+            </motion.div>
+          </ContactLeft>
+
+          <motion.div variants={itemVariants}>
+            <FormCard>
+              {sent ? (
+                <SuccessMsg>Opening your mail app — thanks for reaching out!</SuccessMsg>
+              ) : (
+                <Form onSubmit={handleSubmit}>
+                  <FloatingField
+                    id="name"
+                    label="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <FloatingField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <FloatingField
+                    id="message"
+                    label="Message"
+                    textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                  <SubmitBtn type="submit" disabled={sending}>
+                    {sending ? 'Opening mail app…' : 'Send Message'}
+                  </SubmitBtn>
+                </Form>
+              )}
+            </FormCard>
+          </motion.div>
         </Inner>
       </ContactSection>
     </>

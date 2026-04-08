@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { useEffect, useState, useCallback } from 'react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import styled from 'styled-components'
 
@@ -8,69 +8,79 @@ const NavWrap = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  padding: 20px 16px;
+  z-index: 50;
+  background: rgba(7, 7, 15, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 40px 40px -15px rgba(255, 255, 255, 0.04);
 `
 
-const Pill = styled.div`
-  display: inline-flex;
+const NavInner = styled.div`
+  display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 10px 20px;
-  border-radius: 100px;
-  background: ${({ $scrolled }) =>
-    $scrolled ? 'rgba(7,7,15,0.85)' : 'rgba(255,255,255,0.03)'};
-  border: 1px solid ${({ $scrolled }) =>
-    $scrolled ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.07)'};
-  backdrop-filter: ${({ $scrolled }) => ($scrolled ? 'blur(14px)' : 'none')};
-  transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: 64px;
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+  }
 `
 
 const Logo = styled(NavLink)`
   font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--violet-muted);
-  letter-spacing: -0.02em;
-  line-height: 1;
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text);
+
+  &:hover { color: var(--gold); }
+  transition: color 500ms ease;
 `
 
-const Links = styled.div`
+const NavLinks = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 2.5rem;
+  align-items: center;
 
   @media (max-width: 768px) { display: none; }
 `
 
-const Link = styled(NavLink)`
+const NavLinkStyled = styled.button`
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 500ms ease;
 
-  &.active, &:hover { color: var(--text); }
+  &:hover, &.active { color: var(--gold); }
+`
+
+const NavLinkRoute = styled(NavLink)`
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 500ms ease;
+
+  &:hover, &.active { color: var(--gold); }
 `
 
 const ResumeCta = styled.a`
-  padding: 6px 14px;
-  border-radius: 100px;
-  background: rgba(124,58,237,0.12);
-  border: 1px solid rgba(124,58,237,0.28);
-  color: var(--violet-muted);
   font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 500ms ease;
 
-  &:hover {
-    background: rgba(124,58,237,0.22);
-    border-color: rgba(124,58,237,0.5);
-  }
-
-  @media (max-width: 768px) { display: none; }
+  &:hover { color: var(--gold); }
 `
 
 const HamBtn = styled.button`
@@ -78,9 +88,8 @@ const HamBtn = styled.button`
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 18px;
+  padding: 4px;
   line-height: 1;
-  padding: 4px 6px;
 
   @media (max-width: 768px) { display: block; }
 `
@@ -88,24 +97,38 @@ const HamBtn = styled.button`
 const MobileOverlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(7,7,15,0.96);
+  background: rgba(7, 7, 15, 0.97);
   backdrop-filter: blur(14px);
   z-index: 99;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 36px;
+  gap: 2.5rem;
 `
 
-const MobileLink = styled(NavLink)`
+const MobileNavBtn = styled.button`
   font-family: var(--font-display);
-  font-size: 36px;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-muted);
+  background: none;
+  border: none;
+  letter-spacing: -0.02em;
   transition: color 0.2s ease;
 
-  &.active, &:hover { color: var(--text); }
+  &:hover { color: var(--text); }
+`
+
+const MobileNavLink = styled(NavLink)`
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+
+  &:hover, &.active { color: var(--text); }
 `
 
 const CloseBtn = styled.button`
@@ -120,44 +143,48 @@ const CloseBtn = styled.button`
   padding: 4px;
 `
 
-const MobileResume = styled.a`
-  padding: 10px 28px;
-  border-radius: 100px;
-  background: rgba(124,58,237,0.15);
-  border: 1px solid rgba(124,58,237,0.3);
-  color: var(--violet-muted);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-`
+const HamIcon = () => (
+  <svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <line x1="0" y1="2" x2="22" y2="2" />
+    <line x1="0" y1="8" x2="22" y2="8" />
+    <line x1="0" y1="14" x2="22" y2="14" />
+  </svg>
+)
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const pdfUrl = `${import.meta.env.BASE_URL}Resume-Vikram.pdf`
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Close mobile menu on route change
   useEffect(() => { setOpen(false) }, [location.pathname])
+
+  const goToExperience = useCallback(() => {
+    if (location.pathname !== '/') {
+      navigate('/')
+      setTimeout(() => {
+        document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })
+      }, 300)
+    } else {
+      document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [location.pathname, navigate])
 
   return (
     <>
       <NavWrap>
-        <Pill $scrolled={scrolled}>
-          <Logo to="/">VK</Logo>
-          <Links>
-            <Link to="/work">Work</Link>
-            <Link to="/contact">Contact</Link>
-          </Links>
-          <ResumeCta href={pdfUrl} target="_blank" rel="noopener">Resume ↗</ResumeCta>
-          <HamBtn onClick={() => setOpen(true)} aria-label="Open navigation">☰</HamBtn>
-        </Pill>
+        <NavInner>
+          <Logo to="/">Vikram Kini</Logo>
+          <NavLinks>
+            <NavLinkStyled onClick={goToExperience}>Experience</NavLinkStyled>
+            <NavLinkRoute to="/work">Projects</NavLinkRoute>
+            <NavLinkRoute to="/contact">Contact</NavLinkRoute>
+            <ResumeCta href={pdfUrl} target="_blank" rel="noopener">Résumé</ResumeCta>
+          </NavLinks>
+          <HamBtn onClick={() => setOpen(true)} aria-label="Open navigation">
+            <HamIcon />
+          </HamBtn>
+        </NavInner>
       </NavWrap>
 
       <AnimatePresence>
@@ -170,10 +197,12 @@ export default function Nav() {
             transition={{ duration: 0.2 }}
           >
             <CloseBtn onClick={() => setOpen(false)} aria-label="Close navigation">✕</CloseBtn>
-            <MobileLink to="/">Home</MobileLink>
-            <MobileLink to="/work">Work</MobileLink>
-            <MobileLink to="/contact">Contact</MobileLink>
-            <MobileResume href={pdfUrl} target="_blank" rel="noopener">Resume ↗</MobileResume>
+            <MobileNavBtn onClick={() => { setOpen(false); goToExperience() }}>Experience</MobileNavBtn>
+            <MobileNavLink to="/work" onClick={() => setOpen(false)}>Projects</MobileNavLink>
+            <MobileNavLink to="/contact" onClick={() => setOpen(false)}>Contact</MobileNavLink>
+            <MobileNavBtn as="a" href={pdfUrl} target="_blank" rel="noopener" style={{ fontSize: '1.5rem', letterSpacing: 0 }}>
+              Résumé ↗
+            </MobileNavBtn>
           </MobileOverlay>
         )}
       </AnimatePresence>

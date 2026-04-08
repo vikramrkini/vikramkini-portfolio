@@ -13,6 +13,8 @@ export const GlobalStyle = createGlobalStyle`
     --text-faint:     rgba(255,255,255,0.25);
     --glass-bg:       rgba(255,255,255,0.03);
     --glass-border:   rgba(255,255,255,0.07);
+    --gold:           #e9c349;
+    --gold-muted:     rgba(233,195,73,0.4);
     --gradient-brand: linear-gradient(135deg, #7c3aed, #06b6d4);
     --gradient-text:  linear-gradient(135deg, #fff 40%, rgba(167,139,250,0.6));
     --font-display:   'Syne', sans-serif;
