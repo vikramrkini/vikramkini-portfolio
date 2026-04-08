@@ -20,23 +20,26 @@ const HeroImage = styled.div`
   position: absolute;
   inset: 0;
   z-index: 1;
+  overflow: hidden;
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-15%);
+    height: 95%;
+    width: auto;
     filter: grayscale(1);
-    opacity: 0.45;
+    opacity: 0.55;
     transition: filter 1000ms ease, opacity 1000ms ease;
-    /* Vignette mask — center visible, edges fade into dark bg */
-    mask-image: radial-gradient(ellipse 65% 85% at 55% 45%, black 25%, rgba(0,0,0,0.6) 55%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 65% 85% at 55% 45%, black 25%, rgba(0,0,0,0.6) 55%, transparent 80%);
+    /* Fade edges into background */
+    mask-image: radial-gradient(ellipse 55% 90% at 50% 55%, black 40%, rgba(0,0,0,0.5) 65%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 55% 90% at 50% 55%, black 40%, rgba(0,0,0,0.5) 65%, transparent 85%);
   }
 
   &:hover img {
     filter: grayscale(0);
-    opacity: 0.65;
+    opacity: 0.75;
   }
 
   @media (max-width: 768px) {
@@ -48,10 +51,9 @@ const HeroGradientOverlay = styled.div`
   position: absolute;
   inset: 0;
   z-index: 2;
-  /* Strong left vignette so text stays readable; subtle overall darkening */
   background:
-    linear-gradient(to right, #07070f 18%, rgba(7,7,15,0.55) 45%, rgba(7,7,15,0.1) 75%, #07070f 100%),
-    linear-gradient(to bottom, rgba(7,7,15,0.3) 0%, transparent 20%, transparent 80%, rgba(7,7,15,0.6) 100%);
+    linear-gradient(to right, #07070f 20%, rgba(7,7,15,0.5) 42%, rgba(7,7,15,0.05) 70%, #07070f 100%),
+    linear-gradient(to bottom, rgba(7,7,15,0.4) 0%, transparent 15%, transparent 80%, rgba(7,7,15,0.7) 100%);
   pointer-events: none;
 `
 
