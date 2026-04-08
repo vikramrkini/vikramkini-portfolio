@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     width: 100%;
     min-width: 100vw;
-    height: 100%;
+    min-height: 100%;
   }
 
   html { scroll-behavior: smooth; }

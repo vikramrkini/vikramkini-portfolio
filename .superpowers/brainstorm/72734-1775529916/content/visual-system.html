@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Visual System — Stellar Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:#07070f;
+    color:#fff;
+    font-family:'DM Sans',sans-serif;
+    padding:40px 32px 80px;
+    min-height:100vh;
+  }
+
+  .page-title{
+    font-family:'Syne',sans-serif;
+    font-size:13px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(167,139,250,0.8);
+    margin-bottom:8px;
+  }
+  .page-sub{
+    color:rgba(255,255,255,0.4);
+    font-size:14px;
+    margin-bottom:48px;
+  }
+
+  .section-label{
+    font-family:'Syne',sans-serif;
+    font-size:10px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:20px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .type-section{margin-bottom:56px;}
+  .type-row{
+    display:flex;
+    align-items:baseline;
+    gap:24px;
+    margin-bottom:20px;
+    padding:20px 24px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:12px;
+  }
+  .type-meta{
+    min-width:160px;
+    color:rgba(255,255,255,0.3);
+    font-size:11px;
+    line-height:1.8;
+  }
+  .type-meta strong{color:rgba(255,255,255,0.6);display:block;font-size:12px;}
+
+  .display-xl{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;letter-spacing:-0.04em;line-height:0.9;background:linear-gradient(135deg,#fff 40%,rgba(167,139,250,0.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .display-lg{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;letter-spacing:-0.03em;line-height:1;color:#fff;}
+  .display-md{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;letter-spacing:-0.02em;color:#fff;}
+  .label-type{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:#a78bfa;}
+  .body-type{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:300;line-height:1.7;color:rgba(255,255,255,0.6);}
+  .body-sm{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6;}
+
+  /* ── COLORS ── */
+  .color-section{margin-bottom:56px;}
+  .color-grid{display:flex;gap:12px;flex-wrap:wrap;}
+  .swatch{
+    flex:1;min-width:100px;
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .swatch-body{height:80px;display:flex;align-items:flex-end;padding:10px 12px;}
+  .swatch-label{font-size:10px;font-family:'DM Sans',sans-serif;line-height:1.5;}
+  .swatch-meta{
+    padding:10px 12px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-top:none;
+    border-radius:0 0 12px 12px;
+  }
+  .swatch-name{font-size:11px;font-weight:500;color:rgba(255,255,255,0.7);display:block;}
+  .swatch-hex{font-size:10px;color:rgba(255,255,255,0.3);font-family:monospace;}
+
+  /* ── COMPONENTS ── */
+  .comp-section{margin-bottom:56px;}
+  .comp-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:20px;}
+
+  /* Buttons */
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 24px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    color:#fff;
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 0 24px rgba(124,58,237,0.4);
+  }
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 23px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.04);
+    color:rgba(255,255,255,0.7);
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:400;
+    border:1px solid rgba(255,255,255,0.12);
+    cursor:pointer;
+  }
+  .btn-glow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 20px;
+    border-radius:100px;
+    background:rgba(124,58,237,0.15);
+    color:#a78bfa;
+    font-family:'DM Sans',sans-serif;
+    font-size:12px;
+    font-weight:500;
+    border:1px solid rgba(124,58,237,0.3);
+    cursor:pointer;
+    letter-spacing:0.02em;
+  }
+
+  /* Nav pill */
+  .nav-pill{
+    display:inline-flex;align-items:center;gap:28px;
+    padding:12px 24px;
+    border-radius:100px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+  }
+  .nav-logo{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#a78bfa;letter-spacing:-0.02em;}
+  .nav-links{display:flex;gap:20px;}
+  .nav-link{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,0.45);}
+  .nav-link.active{color:#fff;}
+  .nav-cta{
+    padding:7px 14px;
+    border-radius:100px;
+    background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(6,182,212,0.3));
+    border:1px solid rgba(124,58,237,0.4);
+    color:#a78bfa;
+    font-family:'DM Sans',sans-serif;
+    font-size:12px;
+    font-weight:500;
+  }
+
+  /* Card */
+  .project-card{
+    width:280px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+  }
+  .card-thumb{
+    height:120px;
+    background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(6,182,212,0.15));
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .card-thumb-icon{
+    width:40px;height:40px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+  }
+  .card-glow{
+    position:absolute;top:-30px;right:-30px;
+    width:100px;height:100px;
+    background:radial-gradient(circle,rgba(6,182,212,0.3),transparent 65%);
+  }
+  .card-body-inner{padding:16px;}
+  .card-tag{
+    display:inline-block;
+    padding:3px 8px;
+    border-radius:100px;
+    background:rgba(124,58,237,0.15);
+    border:1px solid rgba(124,58,237,0.25);
+    color:#a78bfa;
+    font-size:10px;
+    font-family:'DM Sans',sans-serif;
+    margin-bottom:8px;
+    letter-spacing:0.05em;
+  }
+  .card-title{
+    font-family:'Syne',sans-serif;
+    font-size:17px;font-weight:700;
+    color:#fff;margin-bottom:6px;
+  }
+  .card-desc{
+    font-family:'DM Sans',sans-serif;
+    font-size:12px;color:rgba(255,255,255,0.4);
+    line-height:1.6;
+  }
+  .card-border-glow{
+    position:absolute;inset:0;
+    border-radius:16px;
+    border:1px solid transparent;
+    background:linear-gradient(#07070f,#07070f) padding-box,
+               linear-gradient(135deg,rgba(124,58,237,0.5),rgba(6,182,212,0.5)) border-box;
+    pointer-events:none;
+  }
+
+  /* Divider */
+  .divider{height:1px;background:rgba(255,255,255,0.06);margin:48px 0;}
+</style>
+</head>
+<body>
+
+<div class="page-title">Design Section 2 — Visual System</div>
+<p class="page-sub">Typography · Colors · Core Components · Navigation. This is what every page is built from.</p>
+
+<!-- TYPOGRAPHY -->
+<div class="type-section">
+  <div class="section-label">Typography — Syne Display + DM Sans Body</div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Display XL</strong>Syne 800<br/>72px / −0.04em<br/>Hero headline</div>
+    <div class="display-xl">Vikram Kini</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Display LG</strong>Syne 800<br/>48px / −0.03em<br/>Section titles</div>
+    <div class="display-lg">Selected Work</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Display MD</strong>Syne 700<br/>32px / −0.02em<br/>Card titles, subheads</div>
+    <div class="display-md">Full Stack Engineer</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Label</strong>Syne 600<br/>11px / 0.25em UC<br/>Section tags, badges</div>
+    <div class="label-type">Portfolio · 2026</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Body</strong>DM Sans 300<br/>16px / 1.7<br/>Paragraphs</div>
+    <div class="body-type">Building AI-enabled web & mobile products at the intersection of design and engineering. I care about the craft of software as much as what it does.</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><strong>Body SM</strong>DM Sans 400<br/>13px / 1.6<br/>Captions, meta</div>
+    <div class="body-sm">iOS · React Native · AI Fitness Tracker · 2024</div>
+  </div>
+</div>
+
+<!-- COLORS -->
+<div class="color-section">
+  <div class="section-label">Color System</div>
+  <div class="color-grid">
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:#07070f;">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.3);">Canvas</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--bg-base</span>
+        <span class="swatch-hex">#07070f</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:#0f0f1a;">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.3);">Surface</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--bg-surface</span>
+        <span class="swatch-hex">#0f0f1a</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.6);">Primary</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--violet</span>
+        <span class="swatch-hex">#7c3aed</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.6);">Secondary</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--cyan</span>
+        <span class="swatch-hex">#06b6d4</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:linear-gradient(135deg,#7c3aed,#06b6d4);">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.6);">Gradient</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--gradient-brand</span>
+        <span class="swatch-hex">violet → cyan</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:#a78bfa;">
+        <div class="swatch-label" style="color:rgba(0,0,0,0.5);">Muted violet</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--violet-muted</span>
+        <span class="swatch-hex">#a78bfa</span>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-body" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.06);">
+        <div class="swatch-label" style="color:rgba(255,255,255,0.3);">Glass</div>
+      </div>
+      <div class="swatch-meta">
+        <span class="swatch-name">--glass</span>
+        <span class="swatch-hex">rgba(fff, 0.04)</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- COMPONENTS -->
+<div class="comp-section">
+  <div class="section-label">Navigation — Floating Pill</div>
+  <div class="comp-row">
+    <div class="nav-pill">
+      <span class="nav-logo">VK</span>
+      <div class="nav-links">
+        <span class="nav-link active">Home</span>
+        <span class="nav-link">Work</span>
+        <span class="nav-link">Contact</span>
+      </div>
+      <span class="nav-cta">Resume ↗</span>
+    </div>
+  </div>
+  <p style="color:rgba(255,255,255,0.3);font-size:12px;margin-top:8px;font-family:'DM Sans',sans-serif;">Centered at top. On scroll past hero: gains frosted glass bg. Active link shows full white. Resume opens PDF in new tab.</p>
+</div>
+
+<div class="comp-section">
+  <div class="section-label">Buttons</div>
+  <div class="comp-row">
+    <button class="btn-primary">View My Work →</button>
+    <button class="btn-ghost">Download Resume</button>
+    <button class="btn-glow">Available for work</button>
+  </div>
+</div>
+
+<div class="comp-section">
+  <div class="section-label">Project Card (Work page)</div>
+  <div class="comp-row">
+    <div class="project-card">
+      <div class="card-thumb">
+        <div class="card-glow"></div>
+        <div class="card-thumb-icon">💪</div>
+      </div>
+      <div class="card-body-inner">
+        <span class="card-tag">iOS · AI</span>
+        <div class="card-title">PumpJournal</div>
+        <div class="card-desc">AI-powered fitness tracking app. Log workouts with natural language, track progressive overload automatically.</div>
+      </div>
+      <div class="card-border-glow"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-thumb" style="background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(124,58,237,0.1));">
+        <div class="card-glow" style="background:radial-gradient(circle,rgba(124,58,237,0.3),transparent 65%);top:-30px;left:-30px;right:auto;"></div>
+        <div class="card-thumb-icon" style="background:linear-gradient(135deg,#06b6d4,#7c3aed);">🌐</div>
+      </div>
+      <div class="card-body-inner">
+        <span class="card-tag" style="background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.25);color:#67e8f9;">Web · Full Stack</span>
+        <div class="card-title">Project Two</div>
+        <div class="card-desc">Short description of what this project does and the tech stack used to build it.</div>
+      </div>
+      <div class="card-border-glow" style="background:linear-gradient(#07070f,#07070f) padding-box, linear-gradient(135deg,rgba(6,182,212,0.5),rgba(124,58,237,0.5)) border-box;"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

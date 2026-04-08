@@ -1,0 +1,102 @@
+<h2>How should the homepage feel when it loads?</h2>
+<p class="subtitle">This defines the first impression. Each approach creates a completely different energy.</p>
+
+<div class="cards">
+
+  <!-- Option A: Cinematic Full-Screen Hero -->
+  <div class="card" data-choice="cinematic-hero" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#07070f;min-height:240px;padding:0;position:relative;overflow:hidden;font-family:sans-serif;">
+      <!-- gradient blobs -->
+      <div style="position:absolute;top:-60px;right:-40px;width:260px;height:260px;background:radial-gradient(circle,rgba(139,92,246,0.45),transparent 65%);"></div>
+      <div style="position:absolute;bottom:-60px;left:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(6,182,212,0.3),transparent 65%);"></div>
+      <!-- nav bar -->
+      <div style="position:absolute;top:0;left:0;right:0;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;z-index:10;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="color:#a78bfa;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;">VK</div>
+        <div style="display:flex;gap:16px;">
+          <span style="color:rgba(255,255,255,0.4);font-size:10px;">Work</span>
+          <span style="color:rgba(255,255,255,0.4);font-size:10px;">About</span>
+          <span style="color:rgba(255,255,255,0.4);font-size:10px;">Contact</span>
+        </div>
+      </div>
+      <!-- centered content -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;z-index:2;margin-top:20px;">
+        <div style="color:rgba(167,139,250,0.8);font-size:9px;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:10px;">Full Stack Engineer</div>
+        <div style="color:#fff;font-size:40px;font-weight:800;letter-spacing:-0.04em;line-height:0.9;margin-bottom:8px;">Vikram Kini</div>
+        <div style="color:rgba(255,255,255,0.4);font-size:11px;margin-bottom:16px;line-height:1.6;max-width:280px;">Building AI-enabled web & mobile products at the intersection of design and code</div>
+        <div style="display:flex;gap:8px;">
+          <div style="background:linear-gradient(135deg,#7c3aed,#06b6d4);padding:7px 14px;border-radius:6px;color:#fff;font-size:10px;font-weight:600;">View Work</div>
+          <div style="border:1px solid rgba(139,92,246,0.4);padding:7px 14px;border-radius:6px;color:#a78bfa;font-size:10px;">Resume</div>
+        </div>
+        <div style="position:absolute;bottom:16px;color:rgba(255,255,255,0.25);font-size:9px;letter-spacing:0.2em;">↓ SCROLL</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Cinematic Full-Screen Hero</h3>
+      <p>Name + tagline centered on a full-viewport dark canvas with floating gradient orbs. Page scrolls down to sections. Bold, film-poster energy. Entrance animation: staggered text reveal + orb bloom.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Split Asymmetric -->
+  <div class="card" data-choice="split-asymmetric" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#07070f;min-height:240px;padding:0;position:relative;overflow:hidden;font-family:sans-serif;display:flex;">
+      <!-- left panel -->
+      <div style="width:55%;padding:24px 20px;position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
+        <div style="color:#a78bfa;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px;">Portfolio 2026</div>
+        <div style="color:#fff;font-size:32px;font-weight:800;letter-spacing:-0.04em;line-height:0.9;margin-bottom:8px;">Vikram<br/>Kini</div>
+        <div style="width:40px;height:2px;background:linear-gradient(90deg,#7c3aed,#06b6d4);margin-bottom:8px;"></div>
+        <div style="color:rgba(255,255,255,0.4);font-size:10px;line-height:1.6;margin-bottom:14px;">Full Stack Engineer<br/>AI Products · Design Systems</div>
+        <div style="background:linear-gradient(135deg,#7c3aed,#06b6d4);padding:6px 12px;border-radius:6px;color:#fff;font-size:9px;font-weight:600;display:inline-block;">See Projects →</div>
+      </div>
+      <!-- right panel - glassy card -->
+      <div style="width:45%;padding:20px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px;position:relative;">
+        <div style="position:absolute;top:-40px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(139,92,246,0.4),transparent 65%);"></div>
+        <div style="position:absolute;bottom:-30px;left:0;width:120px;height:120px;background:radial-gradient(circle,rgba(6,182,212,0.25),transparent 65%);"></div>
+        <!-- mini project cards -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:10px;position:relative;z-index:1;">
+          <div style="color:rgba(255,255,255,0.7);font-size:9px;font-weight:600;">PumpJournal</div>
+          <div style="color:rgba(255,255,255,0.3);font-size:8px;margin-top:2px;">iOS · AI Fitness Tracker</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:10px;position:relative;z-index:1;">
+          <div style="color:rgba(255,255,255,0.7);font-size:9px;font-weight:600;">Project Two</div>
+          <div style="color:rgba(255,255,255,0.3);font-size:8px;margin-top:2px;">Web · Full Stack</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;position:relative;z-index:1;">
+          <div style="color:rgba(255,255,255,0.4);font-size:9px;">+ 3 more projects</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Split Asymmetric</h3>
+      <p>Left: name + bio. Right: live preview cards of your best work. Above-the-fold you see both the person and the work immediately. Entrance: left panel slides in from left, cards stagger in from right.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Scroll-Hijack Narrative -->
+  <div class="card" data-choice="scroll-narrative" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#07070f;min-height:240px;padding:0;position:relative;overflow:hidden;font-family:sans-serif;">
+      <div style="position:absolute;top:-40px;right:-20px;width:180px;height:180px;background:radial-gradient(circle,rgba(139,92,246,0.35),transparent 65%);"></div>
+      <!-- progress line -->
+      <div style="position:absolute;left:20px;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.06);">
+        <div style="width:1px;height:40%;background:linear-gradient(180deg,#7c3aed,#06b6d4);"></div>
+        <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:#06b6d4;box-shadow:0 0 8px #06b6d4;"></div>
+      </div>
+      <div style="padding:24px 24px 24px 44px;position:relative;z-index:2;">
+        <div style="color:#a78bfa;font-size:8px;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px;">01 — Hello</div>
+        <div style="color:#fff;font-size:28px;font-weight:800;letter-spacing:-0.03em;line-height:0.9;margin-bottom:10px;">I'm Vikram,<br/>a builder.</div>
+        <div style="color:rgba(255,255,255,0.35);font-size:10px;line-height:1.6;margin-bottom:14px;">Full stack engineer specializing in AI-enabled products, design systems, and mobile apps.</div>
+        <!-- scroll indicator showing next section -->
+        <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;margin-top:4px;">
+          <div style="color:rgba(255,255,255,0.2);font-size:8px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;">02 — What I do</div>
+          <div style="color:rgba(255,255,255,0.12);font-size:9px;">↓ scroll to continue</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Scroll-Driven Narrative</h3>
+      <p>Each scroll section reveals a new chapter (Hello → What I do → Projects → Contact) with a vertical timeline accent. Feels like an interactive story. Heavier animation, most immersive of the three.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;">All three use the violet-cyan palette. This is about how the page <em>behaves</em>, not just looks.</p>

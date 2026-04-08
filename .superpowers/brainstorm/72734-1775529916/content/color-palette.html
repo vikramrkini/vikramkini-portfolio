@@ -1,0 +1,113 @@
+<h2>Which accent palette feels right?</h2>
+<p class="subtitle">All options share a near-black dark base. The accent color defines the personality of the whole site.</p>
+
+<div class="cards">
+
+  <!-- Option A: Electric Violet + Cyan -->
+  <div class="card" data-choice="violet-cyan" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#07070f;min-height:220px;padding:0;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-60px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(139,92,246,0.55),transparent 65%);"></div>
+      <div style="position:absolute;bottom:-40px;left:-20px;width:180px;height:180px;background:radial-gradient(circle,rgba(6,182,212,0.35),transparent 65%);"></div>
+      <div style="padding:28px;position:relative;z-index:1;">
+        <div style="color:#a78bfa;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;margin-bottom:12px;">Full Stack Engineer</div>
+        <div style="color:#fff;font-size:42px;font-weight:800;letter-spacing:-0.04em;line-height:0.95;font-family:sans-serif;">Vikram<br/>Kini</div>
+        <div style="margin-top:16px;display:inline-block;padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border-radius:8px;color:#fff;font-size:11px;font-weight:600;font-family:sans-serif;">View my work →</div>
+        <div style="position:absolute;bottom:20px;right:28px;display:flex;gap:6px;align-items:center;">
+          <div style="width:28px;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:#06b6d4;box-shadow:0 0 8px #06b6d4;"></div>
+        </div>
+      </div>
+      <!-- Color swatches -->
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;height:4px;">
+        <div style="flex:1;background:#7c3aed;"></div>
+        <div style="flex:1;background:#8b5cf6;"></div>
+        <div style="flex:1;background:#06b6d4;"></div>
+        <div style="flex:1;background:#67e8f9;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Electric Violet → Cyan</h3>
+      <p>#7c3aed purple bleeds into #06b6d4 teal. Bold, creative, modern. Feels like a premium design tool or SaaS product.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Emerald + Ghost White -->
+  <div class="card" data-choice="emerald-ghost" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#050f0a;min-height:220px;padding:0;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,0.4),transparent 65%);"></div>
+      <div style="position:absolute;bottom:-60px;left:20px;width:160px;height:160px;background:radial-gradient(circle,rgba(16,185,129,0.18),transparent 65%);"></div>
+      <!-- grid lines -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(16,185,129,0.06) 40px),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(16,185,129,0.06) 40px);"></div>
+      <div style="padding:28px;position:relative;z-index:1;">
+        <div style="color:#10b981;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;font-family:'Courier New',monospace;margin-bottom:12px;">$ whoami → vikram_kini</div>
+        <div style="color:#f0fdf4;font-size:40px;font-weight:800;letter-spacing:-0.04em;line-height:0.95;font-family:sans-serif;">Full Stack<br/><span style="color:#10b981;">Engineer</span></div>
+        <div style="margin-top:16px;border:1px solid rgba(16,185,129,0.4);display:inline-block;padding:7px 14px;border-radius:6px;color:#10b981;font-size:11px;font-family:sans-serif;">View work →</div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;height:4px;">
+        <div style="flex:1;background:#059669;"></div>
+        <div style="flex:1;background:#10b981;"></div>
+        <div style="flex:1;background:#34d399;"></div>
+        <div style="flex:1;background:#a7f3d0;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Emerald + Ghost White</h3>
+      <p>#10b981 green on near-black with subtle grid. Technical hacker-precision meets polish. Nods to terminal aesthetics without being cliché.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Amber + Rose -->
+  <div class="card" data-choice="amber-rose" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0805;min-height:220px;padding:0;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-50px;right:-30px;width:240px;height:240px;background:radial-gradient(circle,rgba(245,158,11,0.4),transparent 65%);"></div>
+      <div style="position:absolute;bottom:-40px;left:-10px;width:180px;height:180px;background:radial-gradient(circle,rgba(244,63,94,0.3),transparent 65%);"></div>
+      <div style="padding:28px;position:relative;z-index:1;">
+        <div style="color:#f59e0b;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;margin-bottom:12px;">Vikram Kini — Portfolio</div>
+        <div style="color:#fff;font-size:42px;font-weight:800;letter-spacing:-0.04em;line-height:0.95;font-family:sans-serif;">Designer<br/><span style="background:linear-gradient(90deg,#f59e0b,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">& Coder</span></div>
+        <div style="margin-top:16px;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(244,63,94,0.2));border:1px solid rgba(245,158,11,0.3);display:inline-block;padding:8px 16px;border-radius:8px;color:#fbbf24;font-size:11px;font-family:sans-serif;">View my work →</div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;height:4px;">
+        <div style="flex:1;background:#d97706;"></div>
+        <div style="flex:1;background:#f59e0b;"></div>
+        <div style="flex:1;background:#f43f5e;"></div>
+        <div style="flex:1;background:#fb7185;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Amber → Rose</h3>
+      <p>#f59e0b gold bleeds into #f43f5e coral-red. Warm but dark, high contrast, energetic. Feels cinematic and bold — stands out from the typical "cool" palette.</p>
+    </div>
+  </div>
+
+  <!-- Option D: Indigo + Ice -->
+  <div class="card" data-choice="indigo-ice" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#080c18;min-height:220px;padding:0;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-50px;right:-30px;width:220px;height:220px;background:radial-gradient(circle,rgba(99,102,241,0.45),transparent 65%);"></div>
+      <div style="position:absolute;bottom:-30px;left:10px;width:160px;height:160px;background:radial-gradient(circle,rgba(186,230,255,0.12),transparent 65%);"></div>
+      <!-- subtle starfield -->
+      <div style="position:absolute;inset:0;" id="stars"></div>
+      <div style="padding:28px;position:relative;z-index:1;">
+        <div style="display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#6366f1;box-shadow:0 0 6px #6366f1;"></div>
+          <div style="color:#818cf8;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-family:sans-serif;">Available for opportunities</div>
+        </div>
+        <div style="color:#fff;font-size:42px;font-weight:800;letter-spacing:-0.04em;line-height:0.95;font-family:sans-serif;">Vikram<br/><span style="color:#6366f1;">Kini</span></div>
+        <div style="margin-top:8px;color:rgba(255,255,255,0.45);font-size:13px;font-family:sans-serif;">Full Stack · AI · Product</div>
+        <div style="margin-top:16px;background:rgba(99,102,241,0.15);backdrop-filter:blur(8px);border:1px solid rgba(99,102,241,0.3);display:inline-block;padding:8px 16px;border-radius:8px;color:#a5b4fc;font-size:11px;font-family:sans-serif;">View work →</div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;height:4px;">
+        <div style="flex:1;background:#4338ca;"></div>
+        <div style="flex:1;background:#6366f1;"></div>
+        <div style="flex:1;background:#818cf8;"></div>
+        <div style="flex:1;background:#c7d2fe;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Indigo + Ice</h3>
+      <p>#6366f1 indigo dominant with cool ice-white highlights. Calm confidence, premium engineering feel. Popular but executed here with more restraint than typical.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;">Click to select, or tell me in the terminal. You can mix-and-match if something feels close but not quite right.</p>

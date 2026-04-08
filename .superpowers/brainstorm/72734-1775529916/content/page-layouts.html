@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Page Layouts — Stellar Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#0a0a14;color:#fff;font-family:'DM Sans',sans-serif;padding:40px 32px 80px;}
+
+  .section-wrap{margin-bottom:72px;}
+  .section-label{
+    font-family:'Syne',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
+    color:rgba(255,255,255,0.25);margin-bottom:20px;padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .caption{font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.3);margin-top:14px;line-height:1.6;}
+
+  /* ── SCREEN FRAME ── */
+  .screen{
+    border-radius:16px;overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 40px 80px rgba(0,0,0,0.6);
+    position:relative;
+  }
+  .screen-bar{
+    height:28px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.06);
+    display:flex;align-items:center;padding:0 14px;gap:6px;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;}
+
+  /* ── HOME HERO ── */
+  .hero-screen{background:#07070f;min-height:520px;position:relative;overflow:hidden;}
+
+  /* Orbs */
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
+  .orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,0.5),transparent 70%);top:-100px;right:-80px;}
+  .orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(6,182,212,0.35),transparent 70%);bottom:-60px;left:-60px;}
+  .orb-3{width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%);bottom:80px;right:30%;}
+
+  /* Noise overlay */
+  .noise{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px;}
+
+  /* Nav */
+  .hero-nav{
+    position:absolute;top:0;left:0;right:0;z-index:10;
+    display:flex;justify-content:center;padding:20px;
+  }
+  .nav-pill{
+    display:inline-flex;align-items:center;gap:24px;padding:10px 20px;
+    border-radius:100px;background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(12px);
+  }
+  .nav-logo{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#a78bfa;}
+  .nav-links{display:flex;gap:18px;}
+  .nav-link{font-size:12px;color:rgba(255,255,255,0.4);}
+  .nav-cta{padding:5px 12px;border-radius:100px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.35);color:#a78bfa;font-size:11px;}
+
+  /* Hero content */
+  .hero-content{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    padding:80px 40px 40px;z-index:2;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 12px;border-radius:100px;
+    background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);
+    color:#a78bfa;font-size:10px;letter-spacing:0.08em;margin-bottom:22px;
+  }
+  .badge-dot{width:5px;height:5px;border-radius:50%;background:#a78bfa;box-shadow:0 0 6px #a78bfa;}
+  .hero-name{
+    font-family:'Syne',sans-serif;font-size:72px;font-weight:800;
+    letter-spacing:-0.04em;line-height:0.9;margin-bottom:6px;
+    background:linear-gradient(135deg,#fff 40%,rgba(167,139,250,0.6));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .hero-role{
+    font-family:'Syne',sans-serif;font-size:30px;font-weight:700;
+    letter-spacing:-0.02em;line-height:1;margin-bottom:20px;
+    background:linear-gradient(90deg,#7c3aed,#06b6d4);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .hero-bio{
+    font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;
+    max-width:400px;margin-bottom:30px;font-weight:300;
+  }
+  .hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .btn-p{padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;box-shadow:0 0 24px rgba(124,58,237,0.4);}
+  .btn-g{padding:9px 19px;border-radius:10px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:12px;border:1px solid rgba(255,255,255,0.1);font-family:'DM Sans',sans-serif;}
+
+  .hero-scroll{
+    position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+    font-size:9px;letter-spacing:0.25em;text-transform:uppercase;
+    color:rgba(255,255,255,0.2);text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .scroll-line{width:1px;height:32px;background:linear-gradient(180deg,rgba(124,58,237,0.6),transparent);}
+
+  /* ── ABOUT STRIP ── */
+  .about-strip{background:#0d0d1a;padding:36px 48px;border-top:1px solid rgba(255,255,255,0.06);}
+  .about-inner{max-width:700px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+  .about-label{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#a78bfa;margin-bottom:10px;}
+  .about-headline{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.02em;color:#fff;line-height:1.2;}
+  .about-body{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;}
+  .skills-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .skill-tag{padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:10px;color:rgba(255,255,255,0.5);}
+  .skill-tag.hi{background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.25);color:#a78bfa;}
+
+  /* ── WORK PAGE ── */
+  .work-screen{background:#07070f;padding:60px 40px;min-height:420px;position:relative;overflow:hidden;}
+  .work-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+  .work-orb-1{width:350px;height:350px;background:radial-gradient(circle,rgba(124,58,237,0.3),transparent 70%);top:-100px;left:-80px;}
+  .work-orb-2{width:250px;height:250px;background:radial-gradient(circle,rgba(6,182,212,0.2),transparent 70%);bottom:-60px;right:-40px;}
+  .work-header{text-align:center;margin-bottom:32px;position:relative;z-index:2;}
+  .work-label{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#a78bfa;margin-bottom:8px;}
+  .work-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;letter-spacing:-0.03em;color:#fff;}
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:2;}
+  .wcard{
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+    border-radius:14px;overflow:hidden;position:relative;
+  }
+  .wcard-thumb{height:90px;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;}
+  .wcard-thumb-1{background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(6,182,212,0.12));}
+  .wcard-thumb-2{background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(124,58,237,0.1));}
+  .wcard-thumb-3{background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.25));}
+  .wcard-body{padding:12px;}
+  .wcard-tag{display:inline-block;padding:2px 7px;border-radius:100px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.2);color:#a78bfa;font-size:9px;margin-bottom:6px;}
+  .wcard-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+  .wcard-desc{font-size:10px;color:rgba(255,255,255,0.35);line-height:1.5;}
+  .wcard-border{position:absolute;inset:0;border-radius:14px;border:1px solid transparent;background:linear-gradient(#07070f,#07070f) padding-box,linear-gradient(135deg,rgba(124,58,237,0.4),rgba(6,182,212,0.4)) border-box;pointer-events:none;}
+
+  /* ── CONTACT PAGE ── */
+  .contact-screen{background:#07070f;padding:60px 40px;min-height:320px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .contact-orb{position:absolute;border-radius:50%;filter:blur(80px);}
+  .contact-orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,0.25),transparent 70%);top:-100px;right:-100px;}
+  .contact-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(6,182,212,0.2),transparent 70%);bottom:-80px;left:-60px;}
+  .contact-inner{max-width:500px;text-align:center;position:relative;z-index:2;}
+  .contact-label{font-family:'Syne',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#a78bfa;margin-bottom:12px;}
+  .contact-title{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:10px;line-height:1;}
+  .contact-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:28px;line-height:1.6;font-weight:300;}
+  .contact-email{
+    display:inline-block;padding:14px 28px;border-radius:12px;
+    background:linear-gradient(135deg,#7c3aed,#06b6d4);
+    color:#fff;font-size:14px;font-weight:500;
+    box-shadow:0 0 32px rgba(124,58,237,0.4);margin-bottom:20px;
+    font-family:'DM Sans',sans-serif;
+  }
+  .contact-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .contact-link{
+    padding:9px 18px;border-radius:10px;background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);
+    font-size:12px;font-family:'DM Sans',sans-serif;
+  }
+
+  .page-title-outer{font-family:'Syne',sans-serif;font-size:13px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(167,139,250,0.8);margin-bottom:8px;}
+  .page-sub-outer{color:rgba(255,255,255,0.35);font-size:13px;margin-bottom:36px;font-family:'DM Sans',sans-serif;}
+</style>
+</head>
+<body>
+
+<div class="page-title-outer">Design Section 3 — Page Layouts</div>
+<p class="page-sub-outer">Full mockup of all three pages. Scroll down to see Home → Work → Contact.</p>
+
+<!-- ═══════════════════════════════════ HOME ═══════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-label">Page 1 — Home (Hero + About Strip)</div>
+  <div class="screen">
+    <div class="screen-bar">
+      <div class="dot" style="background:#ff5f57;"></div>
+      <div class="dot" style="background:#febc2e;"></div>
+      <div class="dot" style="background:#28c840;"></div>
+    </div>
+    <div class="hero-screen">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="noise"></div>
+
+      <div class="hero-nav">
+        <div class="nav-pill">
+          <span class="nav-logo">VK</span>
+          <div class="nav-links">
+            <span class="nav-link" style="color:#fff;">Home</span>
+            <span class="nav-link">Work</span>
+            <span class="nav-link">Contact</span>
+          </div>
+          <span class="nav-cta">Resume ↗</span>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="badge-dot"></div>
+          Available for opportunities
+        </div>
+        <div class="hero-name">Vikram Kini</div>
+        <div class="hero-role">Full Stack Engineer</div>
+        <div class="hero-bio">Building AI-enabled web & mobile products at the intersection of design and engineering. I care about the craft of software as much as what it does.</div>
+        <div class="hero-actions">
+          <div class="btn-p">View My Work →</div>
+          <div class="btn-g">Download Resume</div>
+          <div class="btn-g">LinkedIn ↗</div>
+        </div>
+      </div>
+
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        scroll
+      </div>
+    </div>
+
+    <!-- About strip below hero -->
+    <div class="about-strip">
+      <div class="about-inner">
+        <div>
+          <div class="about-label">About me</div>
+          <div class="about-headline">Engineer who designs. Designer who ships.</div>
+        </div>
+        <div>
+          <div class="about-body" style="margin-bottom:12px;">Full stack developer with a product mindset. I build reliable, maintainable software — and I think obsessively about how it feels to use. Currently focused on AI-enabled applications and mobile.</div>
+          <div class="skills-grid">
+            <span class="skill-tag hi">React</span>
+            <span class="skill-tag hi">Node.js</span>
+            <span class="skill-tag hi">AI / LLMs</span>
+            <span class="skill-tag">iOS / React Native</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Design Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="caption">Hero: animated orb bloom on load, staggered text reveal (badge → name → role → bio → buttons). Scroll indicator fades in last. About strip slides up on scroll-enter.</p>
+</div>
+
+<!-- ═══════════════════════════════════ WORK ═══════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-label">Page 2 — Work</div>
+  <div class="screen">
+    <div class="screen-bar">
+      <div class="dot" style="background:#ff5f57;"></div>
+      <div class="dot" style="background:#febc2e;"></div>
+      <div class="dot" style="background:#28c840;"></div>
+    </div>
+    <div class="work-screen">
+      <div class="work-orb work-orb-1"></div>
+      <div class="work-orb work-orb-2"></div>
+      <div class="noise" style="opacity:0.03;position:absolute;inset:0;background-image:url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E');background-size:128px;"></div>
+
+      <div class="work-header">
+        <div class="work-label">Portfolio</div>
+        <div class="work-title">Selected Work</div>
+      </div>
+
+      <div class="work-grid">
+        <div class="wcard">
+          <div class="wcard-thumb wcard-thumb-1">💪</div>
+          <div class="wcard-body">
+            <div class="wcard-tag">iOS · AI</div>
+            <div class="wcard-name">PumpJournal</div>
+            <div class="wcard-desc">AI-powered fitness tracker. Natural language logging, progressive overload tracking.</div>
+          </div>
+          <div class="wcard-border"></div>
+        </div>
+        <div class="wcard">
+          <div class="wcard-thumb wcard-thumb-2">🌐</div>
+          <div class="wcard-body">
+            <div class="wcard-tag" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.2);color:#67e8f9;">Web · Full Stack</div>
+            <div class="wcard-name">Project Two</div>
+            <div class="wcard-desc">Brief description of your second project and what problem it solves.</div>
+          </div>
+          <div class="wcard-border" style="background:linear-gradient(#07070f,#07070f) padding-box,linear-gradient(135deg,rgba(6,182,212,0.4),rgba(124,58,237,0.4)) border-box;"></div>
+        </div>
+        <div class="wcard">
+          <div class="wcard-thumb wcard-thumb-3">⚡</div>
+          <div class="wcard-body">
+            <div class="wcard-tag">Open Source</div>
+            <div class="wcard-name">Project Three</div>
+            <div class="wcard-desc">Another project with a clear description of its purpose and tech.</div>
+          </div>
+          <div class="wcard-border"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="caption">Cards enter with staggered fade-up on load. Hover: card lifts (translateY -4px), border glow intensifies, subtle inner glow blooms. Each card links to a detail page or external URL.</p>
+</div>
+
+<!-- ═══════════════════════════════════ CONTACT ═══════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-label">Page 3 — Contact</div>
+  <div class="screen">
+    <div class="screen-bar">
+      <div class="dot" style="background:#ff5f57;"></div>
+      <div class="dot" style="background:#febc2e;"></div>
+      <div class="dot" style="background:#28c840;"></div>
+    </div>
+    <div class="contact-screen">
+      <div class="contact-orb contact-orb-1"></div>
+      <div class="contact-orb contact-orb-2"></div>
+
+      <div class="contact-inner">
+        <div class="contact-label">Get in touch</div>
+        <div class="contact-title">Let's build something.</div>
+        <div class="contact-sub">Open to full-time roles, freelance projects, and interesting conversations. Best reached by email.</div>
+        <div><div class="contact-email">vrkini23@gmail.com →</div></div>
+        <div class="contact-links">
+          <div class="contact-link">LinkedIn ↗</div>
+          <div class="contact-link">GitHub ↗</div>
+          <div class="contact-link">Resume ↗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="caption">Minimal. No form — just a direct email CTA and social links. Orbs are subtly animated (slow float). Content entrance: fade-up stagger on load.</p>
+</div>
+
+</body>
+</html>
