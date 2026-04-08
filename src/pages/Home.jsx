@@ -242,12 +242,13 @@ const fadeUp = (delay) => ({
 
 const SKILLS = [
   { label: 'React', hi: true },
-  { label: 'Node.js', hi: true },
+  { label: 'React Native', hi: true },
   { label: 'AI / LLMs', hi: true },
-  { label: 'iOS · React Native', hi: false },
-  { label: 'PostgreSQL', hi: false },
+  { label: 'Spring Boot', hi: false },
+  { label: 'AWS Lambda', hi: false },
   { label: 'TypeScript', hi: false },
-  { label: 'Design Systems', hi: false },
+  { label: 'Flask · Python', hi: false },
+  { label: 'Docker · K8s', hi: false },
 ]
 
 export default function Home() {
@@ -276,9 +277,9 @@ export default function Home() {
           <HeroRole {...fadeUp(0.5)}>Full Stack Engineer</HeroRole>
 
           <HeroBio {...fadeUp(0.65)}>
-            Building AI-enabled web &amp; mobile products at the intersection of
-            design and engineering. I care about the craft of software as much
-            as what it does.
+            Full Stack Engineer with a Master&apos;s from UIUC (4.0 GPA). I&apos;ve shipped
+            React platforms for 75,000+ users, built AI-powered iOS apps, and deployed
+            AWS microservices at scale. I care about the craft as much as the outcome.
           </HeroBio>
 
           <ActionRow {...fadeUp(0.8)}>
@@ -317,9 +318,11 @@ export default function Home() {
           </div>
           <div>
             <AboutBody>
-              Full stack developer with a product mindset. I build reliable,
-              maintainable software — and I think obsessively about how it feels
-              to use. Currently focused on AI-enabled applications and mobile.
+              MS Computer Science, UIUC (4.0 GPA). At ISAFE Enterprises I built a React
+              compliance platform for 75,000+ users and an AI assistant that cut support
+              resolution time 38%. At Airbook.io I shipped BI dashboards and reduced
+              deploy times from 30 to 7 minutes. Outside work I make apps like PumpJournal
+              — 300+ downloads in its first 2 weeks.
             </AboutBody>
             <SkillsWrap>
               {SKILLS.map(({ label, hi }) => (
