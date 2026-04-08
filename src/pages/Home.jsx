@@ -64,10 +64,9 @@ const float = keyframes`
 
 const TechIcon = styled.div`
   position: absolute;
-  width: 48px;
-  height: 48px;
-  opacity: ${({ $opacity }) => $opacity || 0.25};
-  filter: grayscale(1) invert(1);
+  width: 44px;
+  height: 44px;
+  opacity: ${({ $opacity }) => $opacity || 0.3};
   animation: ${float} 8s ease-in-out infinite;
   animation-delay: ${({ $delay }) => $delay || '0s'};
   top: ${({ $top }) => $top || 'auto'};
@@ -184,79 +183,119 @@ const BtnOutline = styled.a`
 `
 
 /* ─────────────────────────────────────────────
-   Tech icons (inline SVG)
+   Tech icons — white/outline, accurate brand marks
 ───────────────────────────────────────────── */
+
+/* JavaScript — official yellow square mark, white version */
 const IconJS = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="32" height="32" fill="#F7DF1E" rx="2"/>
-    <path d="M9.5 24.5c.6 1 1.5 1.8 3.2 1.8 1.9 0 3-.9 3-2.2 0-1.5-.8-2-2.5-2.8l-.9-.4c-2.5-1.1-4.1-2.4-4.1-5.2 0-2.5 2-4.4 5-4.4 2.2 0 3.7.8 4.8 2.8l-2.6 1.7c-.6-1-1.2-1.4-2.2-1.4-1 0-1.7.6-1.7 1.4 0 1 .6 1.4 2 2.1l.9.4c2.9 1.3 4.5 2.5 4.5 5.4 0 3.1-2.4 4.6-5.7 4.6-3.1 0-5.1-1.5-6.1-3.5l2.8-1.7zM22.5 24.1c.4.8 1 1.3 1.9 1.3.9 0 1.5-.4 1.5-1.9V11.7h3.3v11.9c0 3.1-1.8 4.5-4.5 4.5-2.4 0-3.8-1.2-4.5-2.7l2.3-1.3z" fill="#0A0A0A"/>
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" rx="6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="4"/>
+    <text x="64" y="96" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="62" fill="white">JS</text>
   </svg>
 )
 
+/* TypeScript — blue square mark, white version */
 const IconTS = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="32" height="32" fill="#3178C6" rx="2"/>
-    <path d="M18 14.5h-4v-2.5H26V14.5h-4v11H18v-11zM8 17.5c.5 1 1.3 1.7 2.8 1.7 1.4 0 2.2-.7 2.2-1.6 0-1.1-.8-1.5-2.3-2.1l-.7-.3c-1.9-.8-3.2-1.8-3.2-4 0-2 1.6-3.4 4-3.4 1.7 0 2.9.6 3.8 2.2l-2 1.3c-.5-.8-1-1.1-1.8-1.1s-1.3.5-1.3 1.1c0 .8.5 1.1 1.7 1.6l.7.3c2.3 1 3.6 2 3.6 4.2 0 2.4-1.9 3.6-4.5 3.6-2.4 0-4-.9-4.8-2.7L8 17.5z" fill="white"/>
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" rx="6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="4"/>
+    <text x="64" y="96" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="62" fill="white">TS</text>
   </svg>
 )
 
+/* React — accurate three-orbit atom */
 const IconReact = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="16" cy="16" r="3" fill="#61DAFB"/>
-    <ellipse cx="16" cy="16" rx="13" ry="5" stroke="#61DAFB" strokeWidth="1.5" fill="none"/>
-    <ellipse cx="16" cy="16" rx="13" ry="5" stroke="#61DAFB" strokeWidth="1.5" fill="none" transform="rotate(60 16 16)"/>
-    <ellipse cx="16" cy="16" rx="13" ry="5" stroke="#61DAFB" strokeWidth="1.5" fill="none" transform="rotate(120 16 16)"/>
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="64" cy="64" r="10" fill="white"/>
+    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4"/>
+    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4" transform="rotate(60 64 64)"/>
+    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4" transform="rotate(120 64 64)"/>
   </svg>
 )
 
-const IconPython = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 3C9.4 3 9.9 5.8 9.9 5.8L9.9 8.8H16.1V9.8H7.4C7.4 9.8 3 9.3 3 16c0 6.7 3.9 6.5 3.9 6.5H8.8v-3.1s-.1-3.9 3.8-3.9H18.7s3.7.1 3.7-3.6V6.7C22.4 6.7 22.7 3 16 3zM12.7 5.3c.7 0 1.2.5 1.2 1.2s-.5 1.2-1.2 1.2-1.2-.5-1.2-1.2.5-1.2 1.2-1.2z" fill="#4B8BBE"/>
-    <path d="M16 29c6.6 0 6.1-2.8 6.1-2.8l-.1-3H15.9v-1h8.7S29 22.7 29 16c0-6.7-3.9-6.5-3.9-6.5H23.2v3.1s.1 3.9-3.8 3.9H12.9s-3.7-.1-3.7 3.6v6.2C9.2 26.3 9.4 29 16 29zM19.3 26.7c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2 1.2.5 1.2 1.2-.5 1.2-1.2 1.2z" fill="#FFD43B"/>
-  </svg>
-)
-
-const IconAWS = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 18l-2 6h2l.5-1.5h2L12 24h2l-2-6H9zm1 3.5.7-2.5.7 2.5H10zM19 18l-1.5 4.5L16 18h-2l2 6h2l1.5-4.5L21 24h2l2-6h-2l-1.5 4.5L20 18h-1zM4 22c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2H4z" fill="#FF9900"/>
-    <path d="M24 10c0-3.3-3.6-6-8-6s-8 2.7-8 6c-2.2.4-4 2-4 4 0 2.2 1.8 4 4 4h16c2.2 0 4-1.8 4-4 0-2-1.8-3.6-4-4z" fill="#FF9900" opacity="0.3"/>
-  </svg>
-)
-
-const IconVercel = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 4L30 28H2L16 4z" fill="white"/>
-  </svg>
-)
-
+/* Next.js — circle with accurate N letterform */
 const IconNextJS = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="16" cy="16" r="14" fill="#000000"/>
-    <path d="M10 22V10l14 14.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 10h7" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="64" cy="64" r="58" fill="none" stroke="white" strokeWidth="4"/>
+    <text x="64" y="88" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="68" fill="white">N</text>
   </svg>
 )
 
+/* Python — two interlocked snake shapes */
+const IconPython = () => (
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    {/* Top snake (blue body) */}
+    <path d="M64 8 C40 8 30 18 30 36 L30 52 L64 52 L64 58 L22 58 C14 58 8 66 8 76 C8 90 18 102 36 106 L36 92 C28 90 22 84 22 76 L22 72 L64 72 L64 78 L64 72 L78 72 L78 64 L78 52 L98 52 L98 36 C98 18 88 8 64 8 Z" fill="white" opacity="0.9"/>
+    {/* Bottom snake (yellow body) */}
+    <path d="M64 120 C88 120 98 110 98 92 L98 76 L64 76 L64 70 L106 70 C114 70 120 62 120 52 C120 38 110 26 92 22 L92 36 C100 38 106 44 106 52 L106 56 L64 56 L64 50 L64 56 L50 56 L50 64 L50 76 L30 76 L30 92 C30 110 40 120 64 120 Z" fill="rgba(255,255,255,0.55)"/>
+    <circle cx="52" cy="32" r="6" fill="white"/>
+    <circle cx="76" cy="96" r="6" fill="rgba(255,255,255,0.7)"/>
+  </svg>
+)
+
+/* AWS — "aws" wordmark with smile arrow */
+const IconAWS = () => (
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <text x="64" y="58" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="42" fill="white" letterSpacing="-1">AWS</text>
+    {/* Smile arrow */}
+    <path d="M24 76 Q64 98 104 76" fill="none" stroke="white" strokeWidth="5" strokeLinecap="round"/>
+    <polygon points="104,70 112,80 100,82" fill="white"/>
+  </svg>
+)
+
+/* Vercel — accurate upward triangle */
+const IconVercel = () => (
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="64,12 118,108 10,108" fill="white"/>
+  </svg>
+)
+
+/* Docker — whale with containers */
+const IconDocker = () => (
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    {/* Containers */}
+    <rect x="14" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    <rect x="36" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    <rect x="58" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    <rect x="36" y="24" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    <rect x="58" y="24" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    <rect x="58" y="4" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
+    {/* Whale body */}
+    <path d="M8 66 C8 66 14 60 26 62 C30 54 40 54 44 62 C60 58 80 66 88 74 C96 82 94 92 82 94 C70 96 20 94 12 86 C4 78 8 66 8 66 Z" fill="white"/>
+    {/* Whale tail */}
+    <path d="M96 70 C104 64 114 62 118 68 C122 74 118 80 110 80" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+    {/* Water spout */}
+    <path d="M70 58 Q72 48 68 40" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none"/>
+    <path d="M68 40 Q64 34 70 30" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none"/>
+  </svg>
+)
+
+/* PostgreSQL — elephant head silhouette */
 const IconPostgres = () => (
-  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="16" cy="8" rx="9" ry="5" stroke="#336791" strokeWidth="1.5" fill="none"/>
-    <path d="M7 8v10c0 2.8 4 5 9 5s9-2.2 9-5V8" stroke="#336791" strokeWidth="1.5" fill="none"/>
-    <path d="M7 13c0 2.8 4 5 9 5s9-2.2 9-5" stroke="#336791" strokeWidth="1.5" fill="none"/>
-    <path d="M7 18c0 2.8 4 5 9 5s9-2.2 9-5" stroke="#336791" strokeWidth="1.5" fill="none"/>
+  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="64" cy="52" r="36" fill="none" stroke="white" strokeWidth="4"/>
+    <text x="64" y="60" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="22" fill="white">PG</text>
+    {/* Trunk */}
+    <path d="M86 68 C96 72 100 82 96 92 C94 98 88 102 84 98" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+    {/* Ear */}
+    <path d="M34 36 C20 28 16 44 28 52" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+    {/* Tusk */}
+    <path d="M50 82 C46 90 48 100 56 102" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"/>
   </svg>
 )
 
 const TECH_ICONS = [
-  /* Around the face (center/right of screen) */
-  { Icon: IconReact,    $top: '15%',  $left: '52%',  $delay: '0s',   $opacity: 0.35 },
-  { Icon: IconJS,       $top: '22%',  $left: '72%',  $delay: '1s',   $opacity: 0.3  },
-  { Icon: IconTS,       $top: '42%',  $left: '75%',  $delay: '1.5s', $opacity: 0.28 },
-  { Icon: IconNextJS,   $top: '62%',  $left: '65%',  $delay: '2s',   $opacity: 0.3  },
-  { Icon: IconAWS,      $top: '68%',  $left: '45%',  $delay: '3s',   $opacity: 0.25 },
-  /* Near the text (left side) */
-  { Icon: IconPython,   $top: '20%',  $left: '34%',  $delay: '4s',   $opacity: 0.28 },
-  { Icon: IconVercel,   $top: '72%',  $left: '28%',  $delay: '5s',   $opacity: 0.25 },
-  { Icon: IconPostgres, $top: '55%',  $left: '82%',  $delay: '6s',   $opacity: 0.22 },
+  /* Top edge */
+  { Icon: IconReact,   $top: '7%',   $left: '18%',  $delay: '0s',   $opacity: 0.35 },
+  { Icon: IconTS,      $top: '7%',   $right: '12%', $delay: '2s',   $opacity: 0.32 },
+  /* Left edge */
+  { Icon: IconPython,  $top: '38%',  $left: '2%',   $delay: '4s',   $opacity: 0.30 },
+  { Icon: IconDocker,  $bottom: '18%', $left: '3%', $delay: '1s',   $opacity: 0.28 },
+  /* Right edge */
+  { Icon: IconAWS,     $top: '30%',  $right: '2%',  $delay: '3s',   $opacity: 0.30 },
+  { Icon: IconJS,      $bottom: '22%', $right: '3%',$delay: '5s',   $opacity: 0.32 },
+  /* Bottom edge */
+  { Icon: IconNextJS,  $bottom: '6%', $left: '22%', $delay: '1.5s', $opacity: 0.30 },
+  { Icon: IconVercel,  $bottom: '6%', $right: '20%',$delay: '6s',   $opacity: 0.28 },
 ]
 
 /* ─────────────────────────────────────────────
