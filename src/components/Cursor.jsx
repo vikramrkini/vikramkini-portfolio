@@ -1,65 +1,90 @@
-import { useEffect, useState } from 'react'
-import { useMotionValue, useSpring } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
-const CursorDot = styled(motion.div)`
+const Dot = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--violet-muted);
+  background: var(--gold);
   pointer-events: none;
   z-index: 9999;
-  translate: -50% -50%;
+  will-change: transform;
 `
 
-const CursorRing = styled(motion.div)`
+const Ring = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: 1px solid rgba(167,139,250,0.4);
+  border: 1.5px solid rgba(233, 195, 73, 0.45);
   pointer-events: none;
   z-index: 9998;
-  translate: -50% -50%;
+  will-change: transform;
 `
 
 export default function Cursor() {
-  const [isPointer, setIsPointer] = useState(false)
+  const dotRef  = useRef(null)
+  const ringRef = useRef(null)
+  const mouse   = useRef({ x: -100, y: -100 })
+  const ring    = useRef({ x: -100, y: -100 })
+  const rafId   = useRef(null)
 
   useEffect(() => {
-    setIsPointer(window.matchMedia('(pointer: fine)').matches)
+    // Only activate on true pointer (mouse) devices
+    if (!window.matchMedia('(pointer: fine)').matches) return
+
+    const onMove = (e) => {
+      mouse.current.x = e.clientX
+      mouse.current.y = e.clientY
+    }
+    window.addEventListener('mousemove', onMove, { passive: true })
+
+    const tick = () => {
+      // Dot: instant snap
+      if (dotRef.current) {
+        dotRef.current.style.transform =
+          `translate(${mouse.current.x}px, ${mouse.current.y}px) translate(-50%, -50%)`
+      }
+
+      // Ring: smooth LERP trail
+      ring.current.x += (mouse.current.x - ring.current.x) * 0.14
+      ring.current.y += (mouse.current.y - ring.current.y) * 0.14
+      if (ringRef.current) {
+        ringRef.current.style.transform =
+          `translate(${ring.current.x}px, ${ring.current.y}px) translate(-50%, -50%)`
+      }
+
+      rafId.current = requestAnimationFrame(tick)
+    }
+    rafId.current = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(rafId.current)
+    }
   }, [])
 
-  const mouseX = useMotionValue(-100)
-  const mouseY = useMotionValue(-100)
-
-  const dotX = useSpring(mouseX, { stiffness: 600, damping: 35, mass: 0.3 })
-  const dotY = useSpring(mouseY, { stiffness: 600, damping: 35, mass: 0.3 })
-  const ringX = useSpring(mouseX, { stiffness: 280, damping: 26, mass: 0.5 })
-  const ringY = useSpring(mouseY, { stiffness: 280, damping: 26, mass: 0.5 })
-
+  // Hide the native cursor on pointer devices via global style
   useEffect(() => {
-    if (!isPointer) return
-    const move = (e) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-    window.addEventListener('mousemove', move)
-    return () => window.removeEventListener('mousemove', move)
-  }, [isPointer, mouseX, mouseY])
+    const isPointer = window.matchMedia('(pointer: fine)').matches
+    if (isPointer) document.documentElement.style.cursor = 'none'
+    return () => { document.documentElement.style.cursor = '' }
+  }, [])
 
-  if (!isPointer) return null
+  // Don't render on touch devices
+  if (typeof window !== 'undefined' && !window.matchMedia('(pointer: fine)').matches) {
+    return null
+  }
 
   return (
     <>
-      <CursorDot style={{ x: dotX, y: dotY }} />
-      <CursorRing style={{ x: ringX, y: ringY }} />
+      <Dot ref={dotRef} />
+      <Ring ref={ringRef} />
     </>
   )
 }

@@ -1,8 +1,17 @@
+import { useState, useRef, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useTransform, useSpring, useInView } from 'framer-motion'
 import styled, { keyframes } from 'styled-components'
 import portfolioImg from '../assets/portfolio.png'
+import aboutMeImg from '../assets/aboutme.png'
+import {
+  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs,
+  SiPython, SiSwift, SiSpringboot, SiFlask, SiDjango,
+  SiPostgresql, SiMysql, SiMongodb, SiFirebase,
+  SiGooglecloud, SiDocker, SiKubernetes, SiGit, SiVercel,
+} from 'react-icons/si'
+import { FaJava, FaAws } from 'react-icons/fa6'
 
 /* ─────────────────────────────────────────────
    Hero Section
@@ -57,29 +66,16 @@ const HeroGradientOverlay = styled.div`
   pointer-events: none;
 `
 
-const float = keyframes`
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%       { transform: translateY(-20px) rotate(5deg); }
+const marqueeLeft = keyframes`
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 `
 
-const TechIcon = styled.div`
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  opacity: ${({ $opacity }) => $opacity || 0.3};
-  animation: ${float} 8s ease-in-out infinite;
-  animation-delay: ${({ $delay }) => $delay || '0s'};
-  top: ${({ $top }) => $top || 'auto'};
-  left: ${({ $left }) => $left || 'auto'};
-  right: ${({ $right }) => $right || 'auto'};
-  bottom: ${({ $bottom }) => $bottom || 'auto'};
-  z-index: 5;
-  pointer-events: none;
-
-  svg { width: 100%; height: 100%; }
-
-  @media (max-width: 768px) { display: none; }
+const marqueeRight = keyframes`
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 `
+
 
 const HeroContent = styled.div`
   position: relative;
@@ -123,13 +119,6 @@ const HeroDivider = styled(motion.div)`
   margin-bottom: 2.5rem;
 `
 
-const HeroRule = styled.div`
-  flex-shrink: 0;
-  width: 6rem;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.15);
-  margin-top: 0.75rem;
-`
 
 const HeroBody = styled.p`
   font-family: var(--font-body);
@@ -182,121 +171,249 @@ const BtnOutline = styled.a`
   &:hover { color: var(--gold); border-color: var(--gold-muted); }
 `
 
+/* Word reveal — clip-mask slide-up animation */
+const WordClip = styled.span`
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1.08;
+`
+
+const WordInner = styled(motion.span)`
+  display: inline-block;
+`
+
+const heroTitleVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.13, delayChildren: 0.2 } },
+}
+
+const wordReveal = {
+  hidden: { y: '108%' },
+  visible: { y: 0, transition: { duration: 0.78, ease: [0.25, 0.46, 0.45, 0.94] } },
+}
+
 /* ─────────────────────────────────────────────
-   Tech icons — white/outline, accurate brand marks
+   Skills — data
 ───────────────────────────────────────────── */
-
-/* JavaScript — official yellow square mark, white version */
-const IconJS = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <rect width="128" height="128" rx="6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="4"/>
-    <text x="64" y="96" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="62" fill="white">JS</text>
-  </svg>
-)
-
-/* TypeScript — blue square mark, white version */
-const IconTS = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <rect width="128" height="128" rx="6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="4"/>
-    <text x="64" y="96" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="62" fill="white">TS</text>
-  </svg>
-)
-
-/* React — accurate three-orbit atom */
-const IconReact = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="64" cy="64" r="10" fill="white"/>
-    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4"/>
-    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4" transform="rotate(60 64 64)"/>
-    <ellipse cx="64" cy="64" rx="60" ry="22" fill="none" stroke="white" strokeWidth="4" transform="rotate(120 64 64)"/>
-  </svg>
-)
-
-/* Next.js — circle with accurate N letterform */
-const IconNextJS = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="64" cy="64" r="58" fill="none" stroke="white" strokeWidth="4"/>
-    <text x="64" y="88" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="68" fill="white">N</text>
-  </svg>
-)
-
-/* Python — two interlocked snake shapes */
-const IconPython = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    {/* Top snake (blue body) */}
-    <path d="M64 8 C40 8 30 18 30 36 L30 52 L64 52 L64 58 L22 58 C14 58 8 66 8 76 C8 90 18 102 36 106 L36 92 C28 90 22 84 22 76 L22 72 L64 72 L64 78 L64 72 L78 72 L78 64 L78 52 L98 52 L98 36 C98 18 88 8 64 8 Z" fill="white" opacity="0.9"/>
-    {/* Bottom snake (yellow body) */}
-    <path d="M64 120 C88 120 98 110 98 92 L98 76 L64 76 L64 70 L106 70 C114 70 120 62 120 52 C120 38 110 26 92 22 L92 36 C100 38 106 44 106 52 L106 56 L64 56 L64 50 L64 56 L50 56 L50 64 L50 76 L30 76 L30 92 C30 110 40 120 64 120 Z" fill="rgba(255,255,255,0.55)"/>
-    <circle cx="52" cy="32" r="6" fill="white"/>
-    <circle cx="76" cy="96" r="6" fill="rgba(255,255,255,0.7)"/>
-  </svg>
-)
-
-/* AWS — "aws" wordmark with smile arrow */
-const IconAWS = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <text x="64" y="58" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="42" fill="white" letterSpacing="-1">AWS</text>
-    {/* Smile arrow */}
-    <path d="M24 76 Q64 98 104 76" fill="none" stroke="white" strokeWidth="5" strokeLinecap="round"/>
-    <polygon points="104,70 112,80 100,82" fill="white"/>
-  </svg>
-)
-
-/* Vercel — accurate upward triangle */
-const IconVercel = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="64,12 118,108 10,108" fill="white"/>
-  </svg>
-)
-
-/* Docker — whale with containers */
-const IconDocker = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    {/* Containers */}
-    <rect x="14" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    <rect x="36" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    <rect x="58" y="44" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    <rect x="36" y="24" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    <rect x="58" y="24" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    <rect x="58" y="4" width="18" height="16" rx="2" fill="none" stroke="white" strokeWidth="3.5"/>
-    {/* Whale body */}
-    <path d="M8 66 C8 66 14 60 26 62 C30 54 40 54 44 62 C60 58 80 66 88 74 C96 82 94 92 82 94 C70 96 20 94 12 86 C4 78 8 66 8 66 Z" fill="white"/>
-    {/* Whale tail */}
-    <path d="M96 70 C104 64 114 62 118 68 C122 74 118 80 110 80" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-    {/* Water spout */}
-    <path d="M70 58 Q72 48 68 40" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none"/>
-    <path d="M68 40 Q64 34 70 30" stroke="white" strokeWidth="3" strokeLinecap="round" fill="none"/>
-  </svg>
-)
-
-/* PostgreSQL — elephant head silhouette */
-const IconPostgres = () => (
-  <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="64" cy="52" r="36" fill="none" stroke="white" strokeWidth="4"/>
-    <text x="64" y="60" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="22" fill="white">PG</text>
-    {/* Trunk */}
-    <path d="M86 68 C96 72 100 82 96 92 C94 98 88 102 84 98" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-    {/* Ear */}
-    <path d="M34 36 C20 28 16 44 28 52" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"/>
-    {/* Tusk */}
-    <path d="M50 82 C46 90 48 100 56 102" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round"/>
-  </svg>
-)
-
-const TECH_ICONS = [
-  /* Top edge */
-  { Icon: IconReact,   $top: '7%',   $left: '18%',  $delay: '0s',   $opacity: 0.35 },
-  { Icon: IconTS,      $top: '7%',   $right: '12%', $delay: '2s',   $opacity: 0.32 },
-  /* Left edge */
-  { Icon: IconPython,  $top: '38%',  $left: '2%',   $delay: '4s',   $opacity: 0.30 },
-  { Icon: IconDocker,  $bottom: '18%', $left: '3%', $delay: '1s',   $opacity: 0.28 },
-  /* Right edge */
-  { Icon: IconAWS,     $top: '30%',  $right: '2%',  $delay: '3s',   $opacity: 0.30 },
-  { Icon: IconJS,      $bottom: '22%', $right: '3%',$delay: '5s',   $opacity: 0.32 },
-  /* Bottom edge */
-  { Icon: IconNextJS,  $bottom: '6%', $left: '22%', $delay: '1.5s', $opacity: 0.30 },
-  { Icon: IconVercel,  $bottom: '6%', $right: '20%',$delay: '6s',   $opacity: 0.28 },
+const SKILLS_ROW1 = [
+  { Icon: SiJavascript, name: 'JavaScript' },
+  { Icon: SiTypescript, name: 'TypeScript' },
+  { Icon: SiReact,      name: 'React' },
+  { Icon: SiNextdotjs,  name: 'Next.js' },
+  { Icon: SiNodedotjs,  name: 'Node.js' },
+  { Icon: SiPython,     name: 'Python' },
+  { Icon: SiSwift,      name: 'Swift' },
+  { Icon: FaJava,       name: 'Java' },
+  { Icon: SiSpringboot, name: 'Spring Boot' },
+  { Icon: SiFlask,      name: 'Flask' },
+  { Icon: SiDjango,     name: 'Django' },
+  { Icon: SiReact,      name: 'React Native' },
 ]
+
+const SKILLS_ROW2 = [
+  { Icon: SiPostgresql,  name: 'PostgreSQL' },
+  { Icon: SiMysql,       name: 'MySQL' },
+  { Icon: SiMongodb,     name: 'MongoDB' },
+  { Icon: SiFirebase,    name: 'Firebase' },
+  { Icon: FaAws,         name: 'AWS' },
+  { Icon: SiGooglecloud, name: 'GCP' },
+  { Icon: SiDocker,      name: 'Docker' },
+  { Icon: SiKubernetes,  name: 'Kubernetes' },
+  { Icon: SiGit,         name: 'Git' },
+  { Icon: SiVercel,      name: 'Vercel' },
+]
+
+/* ─────────────────────────────────────────────
+   Skills — styled components
+───────────────────────────────────────────── */
+const SkillsSection = styled.section`
+  background: var(--bg-surface);
+  padding: 5rem 0 4.5rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+`
+
+const SkillsHeader = styled.div`
+  text-align: center;
+  padding: 0 6rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) { padding: 0 1.5rem; }
+`
+
+const SkillsSectionLabel = styled.p`
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.75rem;
+`
+
+const SkillsHeading = styled.h2`
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.1;
+`
+
+const MarqueeOuter = styled.div`
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  margin-bottom: 1rem;
+
+  &:last-child { margin-bottom: 0; }
+`
+
+const MarqueeInner = styled.div`
+  display: flex;
+  gap: 0.875rem;
+  width: max-content;
+  animation: ${({ $reverse }) => $reverse ? marqueeRight : marqueeLeft}
+    ${({ $duration }) => $duration || '36s'} linear infinite;
+
+  &:hover { animation-play-state: paused; }
+`
+
+const SkillPill = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: default;
+  transition: border-color 0.4s ease, background 0.4s ease;
+
+  &:hover {
+    border-color: rgba(233, 195, 73, 0.3);
+    background: rgba(233, 195, 73, 0.04);
+  }
+`
+
+const SkillIconWrap = styled.div`
+  opacity: 0.6;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const SkillName = styled.span`
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+`
+
+/* ─────────────────────────────────────────────
+   About Section
+───────────────────────────────────────────── */
+const AboutSection = styled.section`
+  background: var(--bg-base);
+  padding: 8rem 6rem;
+
+  @media (max-width: 1024px) { padding: 6rem 3rem; }
+  @media (max-width: 768px)  { padding: 4rem 1.5rem; }
+`
+
+const AboutGrid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 5rem;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+`
+
+const PortraitPerspective = styled.div`
+  perspective: 900px;
+`
+
+const AboutPortraitWrap = styled(motion.div)`
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+`
+
+const AboutPortrait = styled.img`
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: filter 1000ms ease, opacity 1000ms ease;
+  box-shadow: 0 0 0 1px rgba(233, 195, 73, 0.15), 0 24px 60px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 280px;
+    margin: 0 auto;
+    display: block;
+  }
+`
+
+const AboutContent = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`
+
+const AboutSectionLabel = styled.p`
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.5rem;
+`
+
+const AboutHeading = styled.h2`
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0 0 1.5rem;
+  line-height: 1.1;
+`
+
+const AboutRule = styled.div`
+  width: 4rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 0.5rem;
+`
+
+const AboutP = styled(motion.p)`
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin: 0;
+  font-weight: 300;
+`
 
 /* ─────────────────────────────────────────────
    Experience Section
@@ -360,17 +477,18 @@ const ExpEntry = styled(motion.div)`
 
 const ExpNumber = styled.div`
   position: absolute;
-  left: -1.5rem;
-  top: -0.5rem;
+  left: -0.5rem;
+  top: -3.25rem;
   font-family: var(--font-display);
   font-style: italic;
   font-size: 3.75rem;
   font-weight: 700;
   color: var(--gold);
-  opacity: 0.2;
+  opacity: 0.25;
   line-height: 1;
   transition: opacity 0.3s ease;
   user-select: none;
+  pointer-events: none;
 `
 
 const ExpHeader = styled.div`
@@ -436,23 +554,74 @@ const ExpTag = styled.span`
   padding: 0.3rem 0.6rem;
 `
 
+const ExpMetrics = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+`
+
+const ExpMetric = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`
+
+const ExpMetricValue = styled.div`
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--gold);
+`
+
+const ExpMetricLabel = styled.div`
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.6;
+`
+
 /* ─────────────────────────────────────────────
    Data
 ───────────────────────────────────────────── */
 const EXPERIENCE = [
   {
-    role: 'Full Stack Engineer',
+    role: 'Software Engineer',
     company: 'ISAFE Enterprises LLC',
-    period: '2023 – Present',
-    description: 'Architected a React compliance platform integrated with Spring Boot microservices for 1,000+ K-12 clients and ~75,000 users. Launched a React Native iOS/Android app, shipped AWS Lambda services cutting deployment time 49%, and delivered an AI assistant via AWS Lex + LLMs that improved support resolution speed 38%. Integrated auth across 5+ SSO providers.',
-    tags: ['React', 'React Native', 'Spring Boot', 'AWS Lambda', 'AI/LLMs', 'SSO', 'Jest', 'Cypress'],
+    period: 'Jun 2023 – Present',
+    description: 'Led full-stack development of a compliance platform serving 75,000+ users across 1,000+ K-12 schools. Built everything from the React frontend and React Native mobile apps to AWS Lambda backend services and an AI support assistant — reducing support resolution time by 38% and cutting release cycles from 2 hours to 15 minutes.',
+    tags: ['React', 'React Native', 'AWS Lambda', 'Python', 'MySQL', 'Jest', 'Cypress', 'GitLab CI/CD', 'SSO'],
+    metrics: [
+      { value: 75000, suffix: '+', label: 'Users Served' },
+      { value: 38, suffix: '%', label: 'Faster Support' },
+      { value: 49, suffix: '%', label: 'Deploy Time Cut' },
+    ],
   },
   {
-    role: 'Software Engineer',
+    role: 'Software Developer',
+    company: 'PrairieLearn Inc.',
+    period: 'May 2023 – Aug 2023',
+    description: 'Part-time role during my Master\'s at UIUC. Built deadline automation tooling in React and Node.js that saved instructors 13+ hours per week, and brought the platform to WCAG 2.1 AA accessibility compliance.',
+    tags: ['React', 'Node.js', 'REST APIs', 'Accessibility'],
+    metrics: [
+      { value: 13, suffix: '+', label: 'Hrs Saved / Week' },
+    ],
+  },
+  {
+    role: 'Founding Software Engineer',
     company: 'Airbook.io',
-    period: '2022 – 2023',
-    description: 'Developed React and Flask BI dashboards adopted by 500+ early paid users. Deployed Docker/Kubernetes microservices that reduced deploy time from 30 to 7 minutes.',
+    period: 'Nov 2021 – Jul 2022',
+    description: 'Early engineer on a BI startup, building React and Flask dashboards used by 500+ paying customers. Set up the full containerized deployment pipeline with Docker and Kubernetes, cutting deploy time from 30 minutes to 7.',
     tags: ['React', 'Flask', 'Python', 'Docker', 'Kubernetes'],
+    metrics: [
+      { value: 500, suffix: '+', label: 'Paying Users' },
+      { value: 77, suffix: '%', label: 'Faster Deploys' },
+    ],
   },
 ]
 
@@ -467,8 +636,45 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease },
 })
 
+/* Count-up component — triggers once when scrolled into view */
+function StatCount({ value, suffix = '' }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const [display, setDisplay] = useState(0)
+
+  useEffect(() => {
+    if (!isInView) return
+    const duration = 1600
+    const start = performance.now()
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setDisplay(Math.round(eased * value))
+      if (progress < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }, [isInView, value])
+
+  return <span ref={ref}>{display.toLocaleString()}{suffix}</span>
+}
+
 export default function Home() {
   const pdfUrl = `${import.meta.env.BASE_URL}Resume-Vikram.pdf`
+
+  /* Portrait 3D tilt */
+  const portraitRef = useRef(null)
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-10, 10]), { stiffness: 180, damping: 28 })
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]),  { stiffness: 180, damping: 28 })
+
+  const onPortraitMove = (e) => {
+    const rect = portraitRef.current?.getBoundingClientRect()
+    if (!rect) return
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5)
+    rawY.set((e.clientY - rect.top)  / rect.height - 0.5)
+  }
+  const onPortraitLeave = () => { rawX.set(0); rawY.set(0) }
 
   return (
     <>
@@ -484,31 +690,26 @@ export default function Home() {
       <HeroSection>
         <HeroImage>
           <img src={portfolioImg} alt="Vikram Kini" />
-          {TECH_ICONS.map((item, i) => (
-            <TechIcon key={i} $top={item.$top} $left={item.$left} $right={item.$right} $bottom={item.$bottom} $delay={item.$delay} $opacity={item.$opacity}>
-              {item.Icon()}
-            </TechIcon>
-          ))}
         </HeroImage>
 
         <HeroGradientOverlay />
 
         <HeroContent>
           <HeroOverline {...fadeUp(0.1)}>
-            Software Engineer &amp; Architect
+            AI-Native &middot; Full Stack Engineer
           </HeroOverline>
 
-          <HeroH1 {...fadeUp(0.25)}>
-            Building<br />
-            <GoldSpan>Digital</GoldSpan> Products
+          <HeroH1 initial="hidden" animate="visible" variants={heroTitleVariants}>
+            <WordClip><WordInner variants={wordReveal}>Engineered</WordInner></WordClip>
+            <br />
+            <WordClip><WordInner variants={wordReveal}>to <GoldSpan>Scale.</GoldSpan></WordInner></WordClip>
           </HeroH1>
 
           <HeroDivider {...fadeUp(0.4)}>
-            <HeroRule />
             <HeroBody>
-              Full Stack Engineer with a Master&apos;s from UIUC (4.0 GPA).
-              I ship React platforms for 75,000+ users, AI-powered iOS apps,
-              and AWS microservices at scale.
+              UIUC CS Master&apos;s, 4.0 GPA. I architect React platforms,
+              AI assistants, and AWS microservices — actively used by
+              75,000+ people across 1,000+ organizations.
             </HeroBody>
           </HeroDivider>
 
@@ -520,6 +721,112 @@ export default function Home() {
           </HeroCtas>
         </HeroContent>
       </HeroSection>
+
+      {/* ── Skills Marquee ── */}
+      <SkillsSection>
+        <SkillsHeader>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6, ease }}
+          >
+            <SkillsSectionLabel>Tech Stack</SkillsSectionLabel>
+            <SkillsHeading>What I Work With</SkillsHeading>
+          </motion.div>
+        </SkillsHeader>
+
+        <MarqueeOuter>
+          <MarqueeInner $duration="38s">
+            {[...SKILLS_ROW1, ...SKILLS_ROW1].map((skill, i) => (
+              <SkillPill key={i}>
+                <SkillIconWrap>{skill.Icon({ size: 18 })}</SkillIconWrap>
+                <SkillName>{skill.name}</SkillName>
+              </SkillPill>
+            ))}
+          </MarqueeInner>
+        </MarqueeOuter>
+
+        <MarqueeOuter>
+          <MarqueeInner $reverse $duration="32s">
+            {[...SKILLS_ROW2, ...SKILLS_ROW2].map((skill, i) => (
+              <SkillPill key={i}>
+                <SkillIconWrap>{skill.Icon({ size: 18 })}</SkillIconWrap>
+                <SkillName>{skill.name}</SkillName>
+              </SkillPill>
+            ))}
+          </MarqueeInner>
+        </MarqueeOuter>
+      </SkillsSection>
+
+      {/* ── About ── */}
+      <AboutSection id="about">
+        <AboutGrid>
+          <PortraitPerspective>
+            <AboutPortraitWrap
+              ref={portraitRef}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8, ease }}
+              onMouseMove={onPortraitMove}
+              onMouseLeave={onPortraitLeave}
+              style={{ rotateX, rotateY }}
+            >
+              <AboutPortrait src={aboutMeImg} alt="Vikram Kini" />
+            </AboutPortraitWrap>
+          </PortraitPerspective>
+
+          <AboutContent
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease }}
+          >
+            <div>
+              <AboutSectionLabel>Who I am</AboutSectionLabel>
+              <AboutHeading>The Story</AboutHeading>
+              <AboutRule />
+            </div>
+
+            <AboutP
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: 0.05, ease }}
+            >
+              My passion for technology began long before I wrote my first line of code. At the age of eleven, I was captivated by Apple&apos;s voice assistant, Siri. The idea that a small device in my hand could understand my questions and respond intelligently felt like magic — and it sparked a curiosity that never left me.
+            </AboutP>
+
+            <AboutP
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+            >
+              During my undergraduate studies in Computer Science at the University of Mumbai, I focused on artificial intelligence, machine learning, and database systems. One project I&apos;m especially proud of is TriQL — a beginner-friendly database learning tool with visual query execution that reduced learning time by 20%.
+            </AboutP>
+
+            <AboutP
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: 0.15, ease }}
+            >
+              I then pursued a Master&apos;s in Computer Science at the University of Illinois Urbana-Champaign (UIUC), graduating with a 4.0 GPA and deepening my work in systems, AI, and databases.
+            </AboutP>
+
+            <AboutP
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: 0.2, ease }}
+            >
+              Beyond work, I continue to explore side projects that reflect my passions. PumpJournal — an AI-assisted iOS fitness journal with real-time HealthKit sync and cloud backup — reached 300+ downloads in its first two weeks. What started with a simple &quot;Hey, Siri&quot; has grown into a career centered on solving problems with code.
+            </AboutP>
+          </AboutContent>
+        </AboutGrid>
+      </AboutSection>
 
       {/* ── Experience ── */}
       <ExpSection id="experience">
@@ -540,7 +847,7 @@ export default function Home() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.5, ease }}
           >
-            {EXPERIENCE.map(({ role, company, period, description, tags }, i) => (
+            {EXPERIENCE.map(({ role, company, period, description, tags, metrics }, i) => (
               <ExpEntry
                 key={company}
                 initial={{ opacity: 0, y: 30 }}
@@ -556,6 +863,18 @@ export default function Home() {
                   <ExpPeriod>{period}</ExpPeriod>
                 </ExpHeader>
                 <ExpCompany>{company}</ExpCompany>
+                {metrics && (
+                  <ExpMetrics>
+                    {metrics.map(({ value, suffix, label }) => (
+                      <ExpMetric key={label}>
+                        <ExpMetricValue>
+                          <StatCount value={value} suffix={suffix} />
+                        </ExpMetricValue>
+                        <ExpMetricLabel>{label}</ExpMetricLabel>
+                      </ExpMetric>
+                    ))}
+                  </ExpMetrics>
+                )}
                 <ExpDesc>{description}</ExpDesc>
                 <ExpTags>
                   {tags.map((t) => <ExpTag key={t}>{t}</ExpTag>)}
